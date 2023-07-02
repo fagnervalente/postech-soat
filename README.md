@@ -29,7 +29,7 @@ npm install
 ```sh
 cp .env_example .env
 ```
-- Iniciar serviços containerizados com docker (`postgres`, `pgadmin4` e `webserver`):
+- Iniciar serviços containerizados com docker (`postgres` e `webserver`):
 ```sh
 docker compose up -d
 ```
