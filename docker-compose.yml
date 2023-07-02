@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  webserver:
+    container_name: self-service-app_webserver
+    build:
+      context: ./
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - DATABASE_HOST=database
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - database
+
+  database:
+    container_name: self-service-app_database
+    image: "postgres:14"
+    restart: always
+    hostname: postgres
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: self-service-app_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "54321:80"
+    depends_on:
+      - database
