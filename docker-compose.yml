@@ -1,24 +1,14 @@
 version: '3'
 
 services:
-  webserver:
-    container_name: self-service-app_webserver
-    build:
-      context: ./
-    command: npm run dev
-    ports:
-      - "3000:3000"
-    environment:
-      - SERVER_PORT=${SERVER_PORT}
-      - DATABASE_HOST=database
-    volumes:
-      - .:/usr/src/app
-    depends_on:
-      - database
-
   database:
     container_name: self-service-app_database
-    image: "postgres:14"
+    image: "postgres:14-alpine"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
     hostname: postgres
     environment:
@@ -30,13 +20,23 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
 
-  pgadmin:
-    container_name: self-service-app_pgadmin
-    image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+  webserver:
+    container_name: self-service-app_webserver
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - "54321:80"
+      - "3000:3000"
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
+      - DATABASE_HOST=database
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_PORT=${DATABASE_PORT}
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+
+volumes:
+    postgres-data:
