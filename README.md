@@ -40,7 +40,7 @@ docker compose up -d
 É possível executar as migrations de banco de dados criadas. Para isso:
 - Executar attach shell no container `self-service-app_webserver`, através da extensão `Docker` do vsCode, ou com o seguinte comando;
 ```
-docker exec -it <nome do container> sh
+docker exec -it self-service-app_webserver sh
 ```
 - Executar migrations:
 ```
