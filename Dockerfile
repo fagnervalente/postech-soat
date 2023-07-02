@@ -1,8 +1,10 @@
 FROM node:18-alpine
 
-WORKDIR /usr/src/app
-COPY package*.json ./
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+COPY package.json tsconfig.json ./
 COPY . .
-EXPOSE 3000
+RUN npm install 
 
-CMD [ "node", "src/server.ts" ]
+EXPOSE 3000
+CMD npm run dev
