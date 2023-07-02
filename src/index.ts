@@ -14,5 +14,5 @@ AppDataSource.initialize().then(() => {
   app.use(productRoutes);
   app.use(orderRoutes);
 
-  return app.listen(process.env.PORT, () => console.log("Server is Running"));
+  return app.listen(process.env.SERVER_PORT, () => console.log("Server is Running"));
 });
