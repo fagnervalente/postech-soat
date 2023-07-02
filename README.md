@@ -6,7 +6,7 @@
 - [ ] Crud Pedidos (Fagner)
 - [ ] Crud Clientes (Fagner)
 - [ ] Validação de entrada de dados
-- [ ] Swagger (lib) (Fagner)
+- [ ] Swagger (lib) (Fagner Valente)
 - [ ] Imagem docker (Sirio)
 - [ ] O que danado é o ValueObjects?
 - [ ] Testes e HealthCheck (lib)
