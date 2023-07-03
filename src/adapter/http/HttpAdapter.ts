@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import routes from './routes/main';
 import * as core from 'express-serve-static-core';
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('../../../swagger_output.json');
 
 export default class HttpAdapter {
 	constructor(readonly server: core.Express) {
@@ -8,6 +10,7 @@ export default class HttpAdapter {
 	}
 
 	public initialize(): void {
+		this.setSwagger();
 		this.setJsonMiddleware();
 		this.setRoutes();
 		this.setHandleErrorsMiddlewares();
@@ -29,5 +32,9 @@ export default class HttpAdapter {
 
 	private setRoutes(): void {
 		this.server.use(routes);
+	}
+
+	private setSwagger(): void {
+		this.server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 	}
 }
