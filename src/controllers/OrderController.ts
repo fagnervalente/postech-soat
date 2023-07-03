@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import OrderDatabaseRepository from "../infra/repository/OrderDatabaseRepository";
 import OrderCreator from "../application/usecase/Order/OrderCreator";
+import ListOrder from "../application/usecase/Order/ListOrder";
 import { Order, OrderPaymentStatus } from "../entities/Order";
 import FindCustomerByCPF from "../application/usecase/Customer/FindCustomerByCPF";
 import CustomerDatabaseRepository from "../infra/repository/CustomerDatabaseRepository";
@@ -49,6 +50,17 @@ export default class OrderController {
       const orderCreator = new OrderCreator(orderRepository);
       const result = await orderCreator.execute(order);
 
+      return res.status(201).json(result);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+
+  async list(req: Request, res: Response) {
+    try {
+      const listOrder = new ListOrder(orderRepository);
+      const result = await listOrder.execute();
       return res.status(201).json(result);
     } catch (error) {
       console.log(error);

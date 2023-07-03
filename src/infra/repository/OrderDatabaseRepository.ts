@@ -12,7 +12,7 @@ export default class OrderDatabaseRepository implements OrderRepository {
   }
 
   list(): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+    return this.orderRepository.find();
   }
 
 }
