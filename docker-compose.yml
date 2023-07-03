@@ -27,6 +27,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - .:/usr/app
     environment:
       - SERVER_PORT=${SERVER_PORT}
       - DATABASE_HOST=database
