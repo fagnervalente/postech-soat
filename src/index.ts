@@ -1,18 +1,7 @@
-import express from "express";
-import { AppDataSource } from "./data-source";
-import productCategoryRoutes from "./routes/productCategoryRoutes";
-import customerRoutes from "./routes/customerRoutes";
-import productRoutes from "./routes/productRoutes";
-import orderRoutes from "./routes/orderRoutes";
+import App from './app';
+import 'dotenv/config';
 
-AppDataSource.initialize().then(() => {
-  const app = express();
-  app.use(express.json());
+const app = new App();
 
-  app.use(customerRoutes);
-  app.use(productCategoryRoutes);
-  app.use(productRoutes);
-  app.use(orderRoutes);
-
-  return app.listen(process.env.SERVER_PORT, () => console.log("Server is Running"));
-});
+app.initializeAdapters()
+	.then(() => app.getServer().listen(process.env.SERVER_PORT));
