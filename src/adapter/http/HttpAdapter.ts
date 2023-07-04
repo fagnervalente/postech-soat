@@ -1,8 +1,8 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import routes from './routes/main';
 import * as core from 'express-serve-static-core';
-const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('../../../swagger_output.json');
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from '../../../swagger_output.json';
 
 export default class HttpAdapter {
 	constructor(readonly server: core.Express) {
