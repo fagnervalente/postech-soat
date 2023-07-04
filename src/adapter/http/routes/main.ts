@@ -1,10 +1,10 @@
-import ProductRouter from "./ProductRouter";
+import productRouter from "./productRouter";
 import customerRoutes from "./customerRoutes";
 import productCategoryRoutes from "./productCategoryRoutes";
 import orderRoutes from "./orderRoutes";
 
 const routes = [
-	ProductRouter,
+	productRouter,
 	customerRoutes,
 	productCategoryRoutes,
 	orderRoutes
