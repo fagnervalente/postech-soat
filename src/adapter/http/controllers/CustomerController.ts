@@ -2,34 +2,65 @@ import { Request, Response } from "express";
 import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
 import CreateUseCase from "../../../core/application/useCase/Customer/CreateUseCase";
 import FindByCPFUseCase from "../../../core/application/useCase/Customer/FindByCPFUseCase";
+import DeleteUseCase from "../../../core/application/useCase/Customer/DeleteUseCase";
+import ListUseCase from "../../../core/application/useCase/Customer/ListUseCase";
 
 const customerRepository = new CustomerDatabaseRepository();
 
 export class CustomerController {
 
-  async create(req: Request, res: Response) {
-    const { name, cpf, email } = req.body;
+	async create(req: Request, res: Response) {
+		const { name, cpf, email } = req.body;
 
-	const createUseCase = new CreateUseCase(customerRepository);
-	const created = await createUseCase.execute({name, cpf, email});
+		const createUseCase = new CreateUseCase(customerRepository);
+		const created = await createUseCase.execute({ name, cpf, email });
 
-	if (createUseCase.hasErrors()) {
-		return res.status(400).json(createUseCase.getErrors());
+		if (createUseCase.hasErrors()) {
+			return res.status(400).json(createUseCase.getErrors());
+		}
+
+		return res.status(201).json(created);
 	}
 
-	return res.status(201).json(created);
-  }
+	async list(req: Request, res: Response) {
+		const listUseCase = new ListUseCase(customerRepository);
+		const customers = await listUseCase.execute();
 
-  async getCustomerByCPF(req: Request, res: Response) {
-    const { cpf } = req.params;
+		if (listUseCase.hasErrors()) {
+			return res.status(400).json(listUseCase.getErrors());
+		}
 
-	const findByCPFUseCase = new FindByCPFUseCase(customerRepository);
-	const customer = await findByCPFUseCase.execute(cpf);
-
-	if (findByCPFUseCase.hasErrors()) {
-		return res.status(400).json(findByCPFUseCase.getErrors());
+		return res.status(200).json(customers);
 	}
 
-	return res.status(200).json(customer);
-  }
+	async getCustomerByCPF(req: Request, res: Response) {
+		const { cpf } = req.params;
+
+		const findByCPFUseCase = new FindByCPFUseCase(customerRepository);
+		const customer = await findByCPFUseCase.execute(cpf);
+
+		if (findByCPFUseCase.hasErrors()) {
+			return res.status(400).json(findByCPFUseCase.getErrors());
+		}
+
+		return res.status(200).json(customer);
+	}
+
+	async delete(req: Request, res: Response) {
+		const { id } = req.params;
+		try {
+			const customerId = Number(id);
+			const deleteUseCase = new DeleteUseCase(customerRepository);
+			deleteUseCase.execute(customerId);
+
+			if (deleteUseCase.hasErrors()) {
+				return res.status(400).json(deleteUseCase.getErrors());
+			}
+
+			return res.status(200).json();
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json({ message: 'Internal Server Error' });
+		}
+	}
 }
