@@ -4,6 +4,6 @@ import { handleRequest } from '../Utils';
 
 const productCategoryRoutes = Router();
 
-productCategoryRoutes.post('/product-category', handleRequest(new ProductCategoryController().create))
+productCategoryRoutes.post('/category', handleRequest(new ProductCategoryController().create))
 
 export default productCategoryRoutes;
