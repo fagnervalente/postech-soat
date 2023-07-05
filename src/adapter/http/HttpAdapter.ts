@@ -3,6 +3,7 @@ import routes from './routes/main';
 import * as core from 'express-serve-static-core';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../../../swagger_output.json';
+import InternalServerError from '../../core/domain/Error/InternalServerError';
 
 export default class HttpAdapter {
 	constructor(readonly server: core.Express) {
@@ -13,20 +14,21 @@ export default class HttpAdapter {
 		this.setSwagger();
 		this.setJsonMiddleware();
 		this.setRoutes();
-		this.setHandleErrorsMiddlewares();
+		this.setErrorHandler();
 	}
 
 	private setJsonMiddleware(): void {
 		this.server.use(express.json());
 	}
 
-	private setHandleErrorsMiddlewares(): void {
+	private setErrorHandler(): void {
 		this.server.use((err: any, req: Request, res: Response, next: NextFunction) => {
-			return res.status(500).json({
-				type: 'InternalError',
-				message: err.message || 'An internal error occurred',
-				// stack: err.stack
+			const response = InternalServerError.create({
+				message: err.message,
+				stack: err.stack
 			});
+
+			return res.status(500).json(response);
 		});
 	}
 
