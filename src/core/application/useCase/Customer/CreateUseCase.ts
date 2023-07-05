@@ -35,11 +35,13 @@ export default class CreateUseCase extends AbstractUseCase {
 	}
 
 	private async validateCPFInUse(customer: Customer): Promise<void> {
-		const findByCPFUseCase = new FindByCPFUseCase(this.repository);
-		const existingCustomer = await findByCPFUseCase.execute(customer.cpf);
+		if (customer.cpf) {
+			const findByCPFUseCase = new FindByCPFUseCase(this.repository);
+			const existingCustomer = await findByCPFUseCase.execute(customer.cpf);
 
-		if (existingCustomer) {
-			this.setError({message: 'CPF informed is already registered in our system'});
+			if (existingCustomer) {
+				this.setError({message: 'CPF informed is already registered in our system'});
+			}
 		}
 	}
 }
