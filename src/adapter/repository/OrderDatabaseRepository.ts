@@ -15,4 +15,9 @@ export default class OrderDatabaseRepository implements OrderRepository {
 		return this.orderRepository.find({ relations: ["products"] });
 	}
 
+	async update(order: Order): Promise<void> {
+		const orderId = Number(order.id);
+		await this.orderRepository.update(orderId, order);
+		return;
+	}
 }

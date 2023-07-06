@@ -11,6 +11,24 @@
     "http"
   ],
   "paths": {
+    "/customer": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/customer/{cpf}": {
       "get": {
         "description": "",
@@ -29,9 +47,17 @@
         }
       }
     },
-    "/customer": {
-      "post": {
+    "/customer/{id}": {
+      "delete": {
         "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -53,13 +79,13 @@
       "post": {
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
     },
-    "/product-category": {
+    "/category": {
       "post": {
         "description": "",
         "responses": {
