@@ -12,16 +12,12 @@ export default class ProductDatabaseRepository implements ProductRepository {
     return await this.productRepository.save(newProduct);
   }
 
-  async findOne(id: number): Promise<Product | null> {
+  async findById(id: number): Promise<Product | null> {
     return await this.productRepository.findOneBy({ id });
   }
 
-  update(Product: Product): Promise<Product> {
-    throw new Error("Method not implemented.");
-  }
-
-  delete(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: number): Promise<void> {
+    await this.productRepository.softDelete(id);
   }
 
   async listByCategory(category: ProductCategory): Promise<Product[]> {

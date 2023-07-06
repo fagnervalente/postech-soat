@@ -9,7 +9,7 @@ export default class ListByCategoryUseCase extends AbstractUseCase {
 		super(productRepository);
 	}
 
-	async execute(category: ProductCategory): Promise<Product[]> {
+	public async execute(category: ProductCategory): Promise<Product[]> {
 		const products = await this.productRepository.listByCategory(category);
 
 		if (!products) {

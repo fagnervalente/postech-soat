@@ -8,8 +8,8 @@ export default class FindByIdUseCase extends AbstractUseCase {
 		super(productRepository);
 	}
 
-	async execute(id: number): Promise<Product | null> {
-		const product = await this.productRepository.findOne(id);
+	public async execute(id: number): Promise<Product | null> {
+		const product = await this.productRepository.findById(id);
 
 		if (!product) {
 			this.setError({ message: 'Product not found!' });
