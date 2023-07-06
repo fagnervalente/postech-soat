@@ -13,8 +13,19 @@ export default class AbstractUseCase {
 		return this.errors.length > 0;
 	}
 
-	public setError(error: any): void {
+	public setError(error: IError): void {
+		if (error.type) {
+			this.errors.push(error);
+			return;
+		}
+
 		this.errors.push(ValidationError.create(error));
+	}
+
+	public setErrors(errors: IError[]) {
+		for (const error of errors) {
+			this.setError(error);
+		}
 	}
 
 	public clearErrors(): void {

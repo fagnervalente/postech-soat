@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
 /**
- * Tenta executar método da controler informada,
- * Em caso de falha, transmite erro para handle error middleware (HttpAdapter::setHandleErrorsMiddlewares)
+ * Executa método da controller e
+ * em caso de falha, erro é capturado pelo error handler do adapter (HttpAdapter::setErrorHandler)
  */
 export const handleRequest = (controller: Function) => async (req: Request, res: Response, next: NextFunction) => {
 	try {
