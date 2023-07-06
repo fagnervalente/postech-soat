@@ -1,6 +1,7 @@
 import { Product } from "../../../../database/entities/Product";
 import ProductRepository from "../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
+import schema from "../../validation/updateProduct";
 
 export default class UpdateUseCase extends AbstractUseCase{
 
@@ -8,19 +9,15 @@ export default class UpdateUseCase extends AbstractUseCase{
 		super(productRepository);
 	}
 
-	public async execute(product: Product): Promise<Product> {
-		const productId = Number(product.id);
+	public async execute(product: Product): Promise<void> {
+		this.validateFields(product);
+		if (this.hasErrors()) return;
+
+		await this.productRepository.update(product);
+	}
+
 		
-		if(!productId){
-			this.setError({message: '"id" is required'});
-		}
-
-		const preExistentProduct = await this.productRepository.findById(productId);
-
-		if (!preExistentProduct) {
-			this.setError({ message: 'Product not found!' });
-		}
-
-		return await this.productRepository.save(product);
+	private async validateFields(product: Product): Promise<void> {
+		this.validateSchema(schema, product);
 	}
 }

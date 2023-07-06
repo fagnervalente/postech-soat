@@ -20,6 +20,11 @@ export default class ProductDatabaseRepository implements ProductRepository {
     await this.productRepository.softDelete(id);
   }
 
+  async update(product: Product): Promise<void> {
+    const productId = Number(product.id);
+    this.productRepository.update(productId, product);
+  }
+
   async listByCategory(category: ProductCategory): Promise<Product[]> {
     return await this.productRepository.findBy({ category })
   }
