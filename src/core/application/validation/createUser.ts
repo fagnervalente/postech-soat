@@ -1,5 +1,5 @@
 import { Schema } from "ajv";
-import { ajv } from "../helper";
+import { ajv } from "./helper";
 
 const schema: Schema = {
   type: "object",

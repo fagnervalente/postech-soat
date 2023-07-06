@@ -9,7 +9,14 @@ export default class CreateUseCase extends AbstractUseCase {
 		super(orderRepository);
 	}
 
-	async execute(order: Order): Promise<Order> {
+	async execute(order: Order): Promise<Order | null> {
+		if (!order.products || order.products.length === 0) {
+			this.setError({ message: "Order must have at least one product" });
+		}
+		if (this.hasErrors()) {
+			return null;
+		} 
+		
 		order.totalPrice = OrderDomain.calculateTotalPrice(order.products);
 		return await this.orderRepository.save(order);
 	}
