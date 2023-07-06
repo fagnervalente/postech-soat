@@ -3,6 +3,6 @@
 export type errorType = 'ValidationError' | 'InternalServerError';
 
 export default interface IError {
-	type: errorType,
+	type?: errorType,
 	message: string
 }
