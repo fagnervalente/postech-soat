@@ -18,36 +18,13 @@ export default class OrderController {
 
 	async checkout(req: Request, res: Response) {
 		const { products, cpf } = req.body;
-		const order: Order = {};
 
-		if (cpf) {
-			const getCustomer = new CustomerFindByCPFUseCase(customerRepository);
-			const customer = await getCustomer.execute(cpf) as Customer;
+		const createUseCase = new CreateUseCase(orderRepository, customerRepository, productRepository);
+		const result = await createUseCase.execute({ products, customer: { cpf: cpf } } as Order);
 
-			if (getCustomer.hasErrors()) {
-				return res.status(400).json(getCustomer.getErrors());
-			}
-
-			order.customer = customer;
+		if (createUseCase.hasErrors()) {
+			return res.status(400).json(createUseCase.getErrors());
 		}
-
-		const getProduct = new ProductFindByIdUseCase(productRepository);
-		let productsFound: Product[] = []
-		for (const id of products) {
-			const product = await getProduct.execute(Number(id));
-			if (getProduct.hasErrors()) {
-				return res.status(400).json(getProduct.getErrors());
-			}
-			productsFound.push(product!);
-		}
-
-		order.products = productsFound;
-
-		// checkout mockado
-		order.paymentStatus = OrderPaymentStatus.APROVADO;
-
-		const createUseCase = new CreateUseCase(orderRepository);
-		const result = await createUseCase.execute(order);
 
 		return res.status(201).json(result);
 	}
