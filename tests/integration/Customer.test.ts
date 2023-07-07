@@ -1,5 +1,5 @@
 import { Customer } from '../../src/database/entities/Customer';
-import CustomerInMemoryRepository from '../../src/adapter/repository/CustomerInMemoryRepository';
+import CustomerInMemoryRepository from '../../src/adapter/repository/inMemory/CustomerInMemoryRepository';
 import ListUseCase from '../../src/core/application/useCase/Customer/ListUseCase';
 import CreateUseCase from '../../src/core/application/useCase/Customer/CreateUseCase';
 import FindByCPFUseCase from '../../src/core/application/useCase/Customer/FindByCPFUseCase';
@@ -7,11 +7,11 @@ import DeleteUseCase from '../../src/core/application/useCase/Customer/DeleteUse
 
 const customerRepository = new CustomerInMemoryRepository();
 const mockedList = [
-	{id: 1,  name: 'Henrique', cpf: '51650096291', email: 'test.lucas@test.com'},
-	{id: 2,  name: 'Joao', cpf: '16245755794', email: 'test.joao@test.com'},
-	{id: 3,  name: 'Raquel', cpf: '91039690882', email: 'test.raquel@test.com'},
-	{id: 4,  name: 'Gabriel', cpf: '66881061757', email: 'test.grabriel@test.com'},
-	{id: 5,  name: 'Rafaela', cpf: '96236155151', email: 'test.rafaela@test.com'}
+	{ id: 1, name: 'Henrique', cpf: '51650096291', email: 'test.lucas@test.com' },
+	{ id: 2, name: 'Joao', cpf: '16245755794', email: 'test.joao@test.com' },
+	{ id: 3, name: 'Raquel', cpf: '91039690882', email: 'test.raquel@test.com' },
+	{ id: 4, name: 'Gabriel', cpf: '66881061757', email: 'test.grabriel@test.com' },
+	{ id: 5, name: 'Rafaela', cpf: '96236155151', email: 'test.rafaela@test.com' }
 ];
 
 beforeAll(() => {
@@ -24,7 +24,7 @@ describe('Test customer use cases with in memory repository', () => {
 		const createUseCase = new CreateUseCase(customerRepository);
 		const created = await createUseCase.execute(mockedCustomer) as Customer;
 
-		expect(created).toEqual({...mockedCustomer, id: created.id});
+		expect(created).toEqual({ ...mockedCustomer, id: created.id });
 		expect(createUseCase.hasErrors()).toBeFalsy();
 	});
 
