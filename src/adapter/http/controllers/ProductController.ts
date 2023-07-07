@@ -17,17 +17,17 @@ export class ProductController {
 
 	async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
 		const { name, description, price } = req.body;
-		const { categoryId } = req.params;
+		const { categoryId } = req.params ?? 0;
 
-		const findCategory = new CategoryFindByIdUseCase(productCategoryRepository);
-		const category = await findCategory.execute(Number(categoryId)) as ProductCategory;
-
-		if (findCategory.hasErrors()) {
-			return res.status(400).json(findCategory.getErrors());
-		}
-
-		const productCreate = new ProductCreateUseCase(productRepository);
-		const result = await productCreate.execute({ name, description, price, category });
+		const productCreate = new ProductCreateUseCase(productRepository, productCategoryRepository);
+		const result = await productCreate.execute({
+			name,
+			description,
+			price,
+			category: {
+				id: parseInt(categoryId)
+			} as ProductCategory
+		});
 
 		if(productCreate.hasErrors()){
 			return res.status(400).json(productCreate.getErrors());
@@ -53,15 +53,8 @@ export class ProductController {
 	async getByCategory(req: Request, res: Response) {
 		const { categoryId } = req.params;
 
-		const findCategory = new CategoryFindByIdUseCase(productCategoryRepository);
-		const category = await findCategory.execute(Number(categoryId)) as ProductCategory;
-
-		if (findCategory.hasErrors()) {
-			return res.status(400).json(findCategory.getErrors());
-		}
-
-		const productListByCategory = new ProductListByCategoryUseCase(productRepository);
-		const result = await productListByCategory.execute(category);
+		const productListByCategory = new ProductListByCategoryUseCase(productRepository, productCategoryRepository);
+		const result = await productListByCategory.execute(parseInt(categoryId));
 
 		if (productListByCategory.hasErrors()) {
 			return res.status(400).json(productListByCategory.getErrors());
@@ -86,7 +79,7 @@ export class ProductController {
 
 	async delete(req: Request, res: Response) {
 		const { id } = req.params;
-		
+
 		const productId = Number(id);
 		const productDelete = new ProductDeleteUseCase(productRepository);
 		productDelete.execute(productId);

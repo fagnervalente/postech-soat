@@ -23,7 +23,7 @@ const mockedProduct: Product = {
 	price: 15.0,
 }
 
-const createUseCase = new ProductCreateUseCase(productRepository);
+const createUseCase = new ProductCreateUseCase(productRepository, categoryRepository);
 
 beforeAll(() => {
 	categoryRepository.categories = mockCategoriesList;
@@ -83,8 +83,8 @@ describe('Test product use cases', () => {
 	test('ProductListByCategoryUseCase - Success', async () => {
 		await saveMockProduct(mockedProduct);
 
-		const listUseCase = new ProductListByCategoryUseCase(productRepository);
-		const list = await listUseCase.execute(mockedProduct.category);
+		const listUseCase = new ProductListByCategoryUseCase(productRepository, categoryRepository);
+		const list = await listUseCase.execute(mockedProduct.category.id ?? 0);
 
 		expect(list).toHaveLength(1);
 		expect(listUseCase.hasErrors()).toBeFalsy();
