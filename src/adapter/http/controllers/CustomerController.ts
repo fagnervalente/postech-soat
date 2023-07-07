@@ -48,19 +48,14 @@ export class CustomerController {
 
 	async delete(req: Request, res: Response) {
 		const { id } = req.params;
-		try {
-			const customerId = Number(id);
-			const deleteUseCase = new DeleteUseCase(customerRepository);
-			deleteUseCase.execute(customerId);
+		const customerId = Number(id);
+		const deleteUseCase = new DeleteUseCase(customerRepository);
+		await deleteUseCase.execute(customerId);
 
-			if (deleteUseCase.hasErrors()) {
-				return res.status(400).json(deleteUseCase.getErrors());
-			}
-
-			return res.status(200).json();
-		} catch (error) {
-			console.log(error);
-			return res.status(500).json({ message: 'Internal Server Error' });
+		if (deleteUseCase.hasErrors()) {
+			return res.status(400).json(deleteUseCase.getErrors());
 		}
+
+		return res.status(200).json();
 	}
 }
