@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Order, OrderPaymentStatus } from "../../../database/entities/Order";
 import CustomerFindByCPFUseCase from "../../../core/application/useCase/Customer/FindByCPFUseCase";
-import ProductFindByIdUseCase from "../../../core/application/useCase/Product/FindByIdUseCase";
+import ProductFindByIdUseCase from "../../../core/application/useCase/Product/ProductFindByIdUseCase";
 import OrderDatabaseRepository from "../../repository/OrderDatabaseRepository";
 import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";

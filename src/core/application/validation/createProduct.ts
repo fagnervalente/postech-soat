@@ -6,10 +6,10 @@ const schema: Schema = {
   properties: {
     name: { type: "string" },
     description: { type: "string" },
-    price: { type: "number", minimun: 0 },
-    categoryId: { type: "integer" },
+    price: { type: "number", minimum: 0 },
+    category: { type: "object", required : ["id"] },
   },
-  required: ["name", "description", "price", "categoryId"],
+  required: ["name", "description", "price", "category"],
   additionalProperties: false
 }
 

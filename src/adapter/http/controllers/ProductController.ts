@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import CategoryFindByIdUseCase from "../../../core/application/useCase/ProductCategory/FindById";
 import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
-import CreateUseCase from "../../../core/application/useCase/Product/CreateUseCase";
-import ListByCategoryUseCase from "../../../core/application/useCase/Product/ListByCategoryUseCase";
+import ProductCreateUseCase from "../../../core/application/useCase/Product/ProductCreateUseCase";
+import ProductListByCategoryUseCase from "../../../core/application/useCase/Product/ProductListByCategoryUseCase";
 import { ProductCategory } from "../../../database/entities/ProductCategory";
-import DeleteUseCase from "../../../core/application/useCase/Product/DeleteUseCase";
-import FindByIdUseCase from "../../../core/application/useCase/Product/FindByIdUseCase";
+import ProductDeleteUseCase from "../../../core/application/useCase/Product/ProductDeleteUseCase";
+import ProductFindByIdUseCase from "../../../core/application/useCase/Product/ProductFindByIdUseCase";
 import { Product } from "../../../database/entities/Product";
-import UpdateUseCase from "../../../core/application/useCase/Product/UpdateUseCase";
+import ProductUpdateUseCase from "../../../core/application/useCase/Product/ProductUpdateUseCase";
 
 const productRepository = new ProductDatabaseRepository();
 const productCategoryRepository = new ProductCategoryDatabaseRepository();
@@ -26,8 +26,12 @@ export class ProductController {
 			return res.status(400).json(findCategory.getErrors());
 		}
 
-		const createUseCase = new CreateUseCase(productRepository);
-		const result = await createUseCase.execute({ name, description, price, category });
+		const productCreate = new ProductCreateUseCase(productRepository);
+		const result = await productCreate.execute({ name, description, price, category });
+
+		if(productCreate.hasErrors()){
+			return res.status(400).json(productCreate.getErrors());
+		}
 
 		return res.status(201).json(result);
 	}
@@ -35,11 +39,11 @@ export class ProductController {
 	async getById(req: Request, res: Response) {
 		const { id } = req.params;
 
-		const findByIdUseCase = new FindByIdUseCase(productRepository);
-		const result = await findByIdUseCase.execute(Number(id));
+		const productFindById = new ProductFindByIdUseCase(productRepository);
+		const result = await productFindById.execute(Number(id));
 
-		if (findByIdUseCase.hasErrors()) {
-			return res.status(400).json(findByIdUseCase.getErrors());
+		if (productFindById.hasErrors()) {
+			return res.status(400).json(productFindById.getErrors());
 		}
 
 		return res.status(200).json(result);
@@ -56,11 +60,11 @@ export class ProductController {
 			return res.status(400).json(findCategory.getErrors());
 		}
 
-		const listByCategoryUseCase = new ListByCategoryUseCase(productRepository);
-		const result = await listByCategoryUseCase.execute(category);
+		const productListByCategory = new ProductListByCategoryUseCase(productRepository);
+		const result = await productListByCategory.execute(category);
 
-		if (listByCategoryUseCase.hasErrors()) {
-			return res.status(400).json(listByCategoryUseCase.getErrors());
+		if (productListByCategory.hasErrors()) {
+			return res.status(400).json(productListByCategory.getErrors());
 		}
 
 		return res.status(200).json(result);
@@ -70,11 +74,11 @@ export class ProductController {
 		const { name, description, price, category} = req.body;
 		const { id } = req.params;
 
-		const updateUseCase = new UpdateUseCase(productRepository);
-		const result = await updateUseCase.execute({ id: Number(id), name, description, price, category });
+		const productUpdate = new ProductUpdateUseCase(productRepository);
+		const result = await productUpdate.execute({ id: Number(id), name, description, price, category });
 
-		if (updateUseCase.hasErrors()) {
-			return res.status(400).json(updateUseCase.getErrors());
+		if (productUpdate.hasErrors()) {
+			return res.status(400).json(productUpdate.getErrors());
 		}
 
 		return res.status(201).json(result);
@@ -84,11 +88,11 @@ export class ProductController {
 		const { id } = req.params;
 		
 		const productId = Number(id);
-		const deleteUseCase = new DeleteUseCase(productRepository);
-		deleteUseCase.execute(productId);
+		const productDelete = new ProductDeleteUseCase(productRepository);
+		productDelete.execute(productId);
 
-		if (deleteUseCase.hasErrors()) {
-			return res.status(400).json(deleteUseCase.getErrors());
+		if (productDelete.hasErrors()) {
+			return res.status(400).json(productDelete.getErrors());
 		}
 
 		return res.status(200).json();

@@ -7,7 +7,7 @@ const schema: Schema = {
     id: { type: "integer" },
     name: { type: "string" },
     description: { type: "string" },
-    price: { type: "number", minimun: 0 },
+    price: { type: "number", minimum: 0 },
     categoryId: { type: "integer" },
   },
   required: ["id"],

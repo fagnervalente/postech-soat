@@ -2,19 +2,17 @@ import { Product } from "../../../../database/entities/Product";
 import ProductRepository from "../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
-export default class FindByIdUseCase extends AbstractUseCase {
+export default class ProductDeleteUseCase extends AbstractUseCase{
 
 	constructor(readonly productRepository: ProductRepository) {
 		super(productRepository);
 	}
 
-	public async execute(id: number): Promise<Product | null> {
-		const product = await this.productRepository.findById(id);
-
-		if (!product) {
-			this.setError({ message: 'Product not found!' });
+	public async execute(id: number): Promise<void | null> {
+		if (!id) {
+			this.setError({message: '"id" is required'});
+			return null;
 		}
-
-		return product;
+		return await this.productRepository.delete(id);
 	}
 }

@@ -3,7 +3,7 @@ import ProductRepository from "../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/updateProduct";
 
-export default class UpdateUseCase extends AbstractUseCase{
+export default class ProductUpdateUseCase extends AbstractUseCase{
 
 	constructor(readonly productRepository: ProductRepository) {
 		super(productRepository);
