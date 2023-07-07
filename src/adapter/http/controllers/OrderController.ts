@@ -30,13 +30,9 @@ export default class OrderController {
 	}
 
 	async list(req: Request, res: Response) {
-		try {
-		  const listOrder = new ListUseCase(orderRepository);
-		  const result = await listOrder.execute();
-		  return res.status(201).json(result);
-		} catch (error) {
-		  console.log(error);
-		  return res.status(500).json({ message: 'Internal Server Error' });
-		}
+		const listOrder = new ListUseCase(orderRepository);
+		const result = await listOrder.execute();
+
+		return res.status(201).json(result);
 	}
 }
