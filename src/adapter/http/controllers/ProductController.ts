@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import CategoryFindByIdUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
 import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
 import ProductCreateUseCase from "../../../core/application/useCase/Product/ProductCreateUseCase";
@@ -7,7 +6,6 @@ import ProductListByCategoryUseCase from "../../../core/application/useCase/Prod
 import { ProductCategory } from "../../../database/entities/ProductCategory";
 import ProductDeleteUseCase from "../../../core/application/useCase/Product/ProductDeleteUseCase";
 import ProductFindByIdUseCase from "../../../core/application/useCase/Product/ProductFindByIdUseCase";
-import { Product } from "../../../database/entities/Product";
 import ProductUpdateUseCase from "../../../core/application/useCase/Product/ProductUpdateUseCase";
 
 const productRepository = new ProductDatabaseRepository();
