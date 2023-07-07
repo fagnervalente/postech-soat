@@ -1,11 +1,11 @@
 
 import { ProductCategory } from "../../../../database/entities/ProductCategory";
-import ProductCategoryRespository from "../../ports/ProductCategoryRepository";
+import ProductCategoryRepository from "../../ports/ProductCategoryRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
-export default class FindCategory extends AbstractUseCase {
+export default class ProductCategoryFindCategoryUseCase extends AbstractUseCase {
 
-	constructor(readonly productCategoryRepository: ProductCategoryRespository) {
+	constructor(readonly productCategoryRepository: ProductCategoryRepository) {
 		super(productCategoryRepository);
 	}
 

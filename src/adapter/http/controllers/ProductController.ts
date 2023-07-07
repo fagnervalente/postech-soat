@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import CategoryFindByIdUseCase from "../../../core/application/useCase/ProductCategory/FindById";
+import CategoryFindByIdUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
 import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
 import ProductCreateUseCase from "../../../core/application/useCase/Product/ProductCreateUseCase";

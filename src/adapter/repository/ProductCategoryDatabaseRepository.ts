@@ -1,8 +1,8 @@
 import { AppDataSource } from "../../data-source";
-import ProductCategoryRespository from "../../core/application/ports/ProductCategoryRepository";
+import ProductCategoryRepository from "../../core/application/ports/ProductCategoryRepository";
 import { ProductCategory } from "../../database/entities/ProductCategory";
 
-export default class ProductCategoryDatabaseRepository implements ProductCategoryRespository {
+export default class ProductCategoryDatabaseRepository implements ProductCategoryRepository {
 
   productCategoryRepository = AppDataSource.getRepository(ProductCategory);
 
@@ -15,4 +15,21 @@ export default class ProductCategoryDatabaseRepository implements ProductCategor
     return await this.productCategoryRepository.findOneBy({ id });
   }
 
+  async list(): Promise<ProductCategory[] | null> {
+    return await this.productCategoryRepository.find();
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.productCategoryRepository.delete(id);
+  }
+
+  async update(category: ProductCategory): Promise<void> {
+    const categoryId = Number(category.id);
+    this.productCategoryRepository.update(categoryId, category);
+  }
+
+  async countProductReferences(categoryId: number): Promise<number> {
+    const category = await this.productCategoryRepository.findOne({ where:  {id: categoryId }, relations: ['products']  });
+    return category?.products?.length || 0;
+  }
 }
