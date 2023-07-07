@@ -20,4 +20,27 @@ export default class ProductCategoryInMemoryRepository implements ProductCategor
 		return finded;
 	}
 
+	public async list(): Promise<ProductCategory[]> {
+		return this.categories;
+	}
+
+	public async delete(id: number): Promise<void> {
+		this.categories = this.categories.filter((category) => {
+			return category.id != id;
+		});
+	}
+
+	public async update(category: ProductCategory): Promise<void> {
+		this.categories.map((c) => {
+			if (c.id == category.id) {
+				c.name = category.name;
+			}
+		});
+	}
+
+	public async countProductReferences(categoryId: number): Promise<number> {
+		/** TODO: implementar lórgica e remover retorno mock */
+		return 0;
+	}
+
 }
