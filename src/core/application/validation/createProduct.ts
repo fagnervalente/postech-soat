@@ -7,8 +7,9 @@ const schema: Schema = {
 		name: { type: "string" },
 		description: { type: "string" },
 		price: { type: "number", minimum: 0 },
+		category: { type: "object", required: ["id"] },
 	},
-	required: ["name", "description", "price"],
+	required: ["name", "description", "price", "category"],
 	additionalProperties: false
 }
 

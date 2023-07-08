@@ -4,9 +4,10 @@ import { ajv } from "./helper";
 const schema: Schema = {
 	type: "object",
 	properties: {
+		id: { type: "integer" },
 		name: { type: "string" }
 	},
-	required: ["name"],
+	required: ["id", "name"],
 	additionalProperties: false
 }
 
