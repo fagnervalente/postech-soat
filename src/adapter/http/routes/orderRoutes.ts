@@ -1,11 +1,9 @@
 import { Router } from "express";
 import OrderController from '../controllers/OrderController';
-import { handleRequest } from '../Utils';
 
 const orderRoutes = Router();
-const orderController = new OrderController();
 
-orderRoutes.get('/order', handleRequest(orderController.list));
-orderRoutes.post('/order/checkout', handleRequest(orderController.checkout));
+orderRoutes.get('/order', new OrderController().list);
+orderRoutes.post('/order/checkout', new OrderController().checkout);
 
 export default orderRoutes;
