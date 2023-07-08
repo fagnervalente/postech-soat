@@ -1,4 +1,3 @@
-import ProductCategoryRespository from "../../../core/application/ports/ProductCategoryRepository";
 import { ProductCategory } from "../../../database/entities/ProductCategory";
 import ProductRepository from '../../../core/application/ports/ProductRepository';
 import { Product } from "../../../database/entities/Product";
@@ -36,7 +35,7 @@ export default class ProductInMemoryRepository implements ProductRepository {
 	}
 
 	public async update(product: Product): Promise<void> {
-		this.products.map((p) => {
+		this.products.forEach((p) => {
 			if (p.id == product.id) {
 				p.name = product.name;
 				p.category = product.category;
