@@ -13,6 +13,14 @@ const productRepository = new ProductDatabaseRepository();
 export default class OrderController {
 
 	async checkout(req: Request, res: Response) {
+		// #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint para realizar o checkout.'
+		/* #swagger.parameters['checkout'] = {
+				in: 'body',
+				description: 'Informações do pedido para checkout.',
+				required: true,
+				schema: { $ref: "#/definitions/Checkout" }
+		} */
 		const { products, cpf } = req.body;
 
 		const createUseCase = new CreateUseCase(orderRepository, customerRepository, productRepository);
@@ -22,13 +30,23 @@ export default class OrderController {
 			return res.status(400).json(createUseCase.getErrors());
 		}
 
+		/* #swagger.responses[201] = { 
+			schema: { $ref: "#/definitions/Order" },
+			description: 'Pedito criado' 
+		} */
 		return res.status(201).json(result);
 	}
 
 	async list(req: Request, res: Response) {
+		// #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint para listar todos os pedidos.'
 		const listOrder = new ListUseCase(orderRepository);
 		const result = await listOrder.execute();
 
-		return res.status(201).json(result);
+		/* #swagger.responses[200] = { 
+			schema: { $ref: "#/definitions/ListOrders" },
+			description: 'Pedidos encontrados' 
+		} */
+		return res.status(200).json(result);
 	}
 }

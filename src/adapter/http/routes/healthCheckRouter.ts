@@ -3,13 +3,15 @@ import { Router, Request, Response } from "express";
 const healthCheckRoutes = Router();
 
 type HealthCheckResponse = {
-  uptime: number;
-  message: string | any;
+	uptime: number;
+	message: string | any;
 	timestamp: number
 };
 
 healthCheckRoutes.get('/', async (req: Request, res: Response) => {
-	
+	// #swagger.tags = ['HelthCheck']
+	// #swagger.description = 'Endpoint para verificar se a API está ativa.'
+
 	const healthcheck: HealthCheckResponse = {
 		uptime: process.uptime(),
 		message: 'OK',

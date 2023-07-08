@@ -10,16 +10,31 @@ const productCategoryRepository = new ProductCategoryDatabaseRepository();
 
 export class ProductCategoryController {
 
-  async create(req: Request, res: Response) {
-    const { name } = req.body;
+	async create(req: Request, res: Response) {
+		// #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint para criar uma categoria.'
+		/* #swagger.parameters['createCategory'] = {
+				in: 'body',
+				description: 'Informações da categoria para cadastro.',
+				required: true,
+				schema: { $ref: "#/definitions/CreateCategory" }
+		} */
+		const { name } = req.body;
 
-    const createUseCase = new ProductCategoryCreateUseCase(productCategoryRepository);
-    const result = await createUseCase.execute({name});
+		const createUseCase = new ProductCategoryCreateUseCase(productCategoryRepository);
+		const result = await createUseCase.execute({ name });
 
-    return res.status(201).json(result);
-  }
+		/* #swagger.responses[201] = { 
+			schema: { $ref: "#/definitions/Category" },
+			description: 'Categoria cadastrada' 
+		} */
+		return res.status(201).json(result);
+	}
 
-  async getById(req: Request, res: Response){
+	async getById(req: Request, res: Response) {
+		// #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint para obter uma categoria pelo id.'
+		/* #swagger.parameters['id'] = { in: 'path', description: 'ID da categoria' } */
 		const { id } = req.params;
 
 		const categoryFindById = new ProductCategoryFindByIdUseCase(productCategoryRepository);
@@ -29,10 +44,16 @@ export class ProductCategoryController {
 			return res.status(400).json(categoryFindById.getErrors());
 		}
 
+		/* #swagger.responses[200] = { 
+			schema: { $ref: "#/definitions/Category" },
+			description: 'Categoria encontrada' 
+		} */
 		return res.status(200).json(result);
 	}
 
-  async list(req: Request, res: Response){
+	async list(req: Request, res: Response) {
+		// #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint para listar todas as categorias criadas.'
 		const listCategories = new ProductCategoryListUseCase(productCategoryRepository);
 		const result = await listCategories.execute();
 
@@ -40,11 +61,23 @@ export class ProductCategoryController {
 			return res.status(400).json(listCategories.getErrors());
 		}
 
+		/* #swagger.responses[200] = { 
+			schema: { $ref: "#/definitions/ListCategories" },
+			description: 'Categorias encontrados' 
+		} */
 		return res.status(200).json(result);
 	}
 
 
 	async update(req: Request, res: Response): Promise<Response> {
+		// #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint para atualizar uma categoria pelo id.'
+		/* #swagger.parameters['updateCategory'] = {
+				in: 'body',
+				description: 'Informações da categoria para atualização.',
+				required: true,
+				schema: { $ref: "#/definitions/UpdateCategory" }
+		} */
 		const { name } = req.body;
 		const { id } = req.params;
 
@@ -55,19 +88,29 @@ export class ProductCategoryController {
 			return res.status(400).json(categoryUpdate.getErrors());
 		}
 
-		return res.status(201).json(result);
+		/* #swagger.responses[200] = { 
+			schema: { $ref: "#/definitions/Category" },
+			description: 'Categoria atualizada' 
+		} */
+		return res.status(200).json(result);
 	}
 
 	async delete(req: Request, res: Response) {
+		// #swagger.tags = ['Category']
+		// #swagger.description = 'Endpoint para remover uma categoria pelo id.'
+		/* #swagger.parameters['id'] = { in: 'path', description: 'ID da categoria' } */
 		const { id } = req.params;
 
-    const categoryDelete = new ProductCategoryDeleteUseCase(productCategoryRepository);
+		const categoryDelete = new ProductCategoryDeleteUseCase(productCategoryRepository);
 		categoryDelete.execute(Number(id));
 
 		if (categoryDelete.hasErrors()) {
 			return res.status(400).json(categoryDelete.getErrors());
 		}
 
+		/* #swagger.responses[200] = {
+			description: 'Categoria removida' 
+		} */
 		return res.status(200).json();
 	}
 }
