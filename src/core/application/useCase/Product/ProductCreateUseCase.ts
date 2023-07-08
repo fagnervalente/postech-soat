@@ -3,10 +3,10 @@ import ProductRepository from "../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/createProduct";
 import ProductCategoryRepository from "../../ports/ProductCategoryRepository";
-import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';
 import { ProductCategory } from "../../../../database/entities/ProductCategory";
+import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
 
-export default class ProductCreateUseCase extends AbstractUseCase{
+export default class ProductCreateUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;
 
 	constructor(readonly repository: ProductRepository, productCategoryRepository: ProductCategoryRepository) {
@@ -30,7 +30,7 @@ export default class ProductCreateUseCase extends AbstractUseCase{
 
 	private async validateCategory(product: Product): Promise<void> {
 		const category = product.category as ProductCategory;
-		const findCategory = new CategoryFindByIdUseCase(this.productCategoryRepository);
+		const findCategory = new ProductCategoryFindByIdUseCase(this.productCategoryRepository);
 		await findCategory.execute(Number(category.id)) as ProductCategory;
 
 		if (findCategory.hasErrors()) {
