@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
 import ProductCreateUseCase from "../../../core/application/useCase/Product/ProductCreateUseCase";
@@ -6,14 +6,14 @@ import ProductListByCategoryUseCase from "../../../core/application/useCase/Prod
 import { ProductCategory } from "../../../database/entities/ProductCategory";
 import ProductDeleteUseCase from "../../../core/application/useCase/Product/ProductDeleteUseCase";
 import ProductFindByIdUseCase from "../../../core/application/useCase/Product/ProductFindByIdUseCase";
-import ProductUpdateUseCase from "../../../core/application/useCase/Product/ProductUpdateUseCase";
+import { ProductUpdateBody, ProductUpdateUseCase } from '../../../core/application/useCase/Product/ProductUpdateUseCase';
 
 const productRepository = new ProductDatabaseRepository();
 const productCategoryRepository = new ProductCategoryDatabaseRepository();
 
 export class ProductController {
 
-	async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
+	async create(req: Request, res: Response): Promise<Response> {
 		const { name, description, price } = req.body;
 		const { categoryId } = req.params ?? 0;
 
@@ -27,7 +27,7 @@ export class ProductController {
 			} as ProductCategory
 		});
 
-		if(productCreate.hasErrors()){
+		if (productCreate.hasErrors()) {
 			return res.status(400).json(productCreate.getErrors());
 		}
 
@@ -62,11 +62,11 @@ export class ProductController {
 	}
 
 	async update(req: Request, res: Response): Promise<Response> {
-		const { name, description, price, category} = req.body;
+		const { name, description, price, categoryId } = req.body;
 		const { id } = req.params;
 
-		const productUpdate = new ProductUpdateUseCase(productRepository);
-		const result = await productUpdate.execute({ id: Number(id), name, description, price, category });
+		const productUpdate = new ProductUpdateUseCase(productRepository, productCategoryRepository);
+		const result = await productUpdate.execute(<ProductUpdateBody>{ id: Number(id), name, description, price, categoryId });
 
 		if (productUpdate.hasErrors()) {
 			return res.status(400).json(productUpdate.getErrors());
