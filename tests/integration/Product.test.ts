@@ -6,7 +6,7 @@ import ProductInMemoryRepository from '../../src/adapter/repository/inMemory/Pro
 import ProductDeleteUseCase from '../../src/core/application/useCase/Product/ProductDeleteUseCase';
 import ProductFindByIdUseCase from '../../src/core/application/useCase/Product/ProductFindByIdUseCase';
 import ProductListByCategoryUseCase from '../../src/core/application/useCase/Product/ProductListByCategoryUseCase';
-import ProductUpdateUseCase from '../../src/core/application/useCase/Product/ProductUpdateUseCase';
+import { ProductUpdateUseCase, ProductUpdateBody } from '../../src/core/application/useCase/Product/ProductUpdateUseCase';
 
 const categoryRepository = new ProductCategoryInMemoryRepository();
 const mockCategoriesList: ProductCategory[] = [
@@ -90,19 +90,88 @@ describe('Test product use cases', () => {
 		expect(listUseCase.hasErrors()).toBeFalsy();
 	});
 
-	test.skip('ProductUpdateUseCase - Success', async () => { //TODO: Falta concluir
+	test('ProductUpdateUseCase - Success', async () => {
 		const created = await saveMockProduct(mockedProduct);
-		const toUpdate = {
-			...created!,
-			name: "Teste1"
+		const toUpdate: ProductUpdateBody = {
+			id: created?.id!,
+			name: "Teste1",
+			description: created?.description!,
+			price: created?.price!,
+			categoryId: created?.category.id!
 		}
 
-		const updateUseCase = new ProductUpdateUseCase(productRepository);
+		const updateUseCase = new ProductUpdateUseCase(productRepository, categoryRepository);
 		await updateUseCase.execute(toUpdate);
 
 		expect(productRepository.products).toHaveLength(1);
-		// expect(productRepository.products[0].name).toBe("Teste1");
-		// expect(updateUseCase.hasErrors()).toBeFalsy();
+		expect(productRepository.products[0].name).toBe("Teste1");
+		expect(updateUseCase.hasErrors()).toBeFalsy();
+	});
+
+	test('ProductUpdateUseCase - Error must have required property "id"', async () => {
+		const created = await saveMockProduct(mockedProduct);
+		const toUpdate: ProductUpdateBody = {
+			id: undefined,
+			name: "Teste1",
+			description: created?.description!,
+			price: created?.price!,
+			categoryId: created?.category.id!
+		}
+
+		const updateUseCase = new ProductUpdateUseCase(productRepository, categoryRepository);
+		await updateUseCase.execute(toUpdate);
+
+		expect(productRepository.products).toHaveLength(1);
+		expect(productRepository.products[0].name).toBe("Teste");
+		expect(updateUseCase.hasErrors()).toBeTruthy();
+		expect(updateUseCase.getErrors()[0]).toMatchObject({
+			type: 'ValidationError',
+			message: "must have required property 'id'"
+		})
+	});
+
+	test('ProductUpdateUseCase - Error Product not found!', async () => {
+		const created = await saveMockProduct(mockedProduct);
+		const toUpdate: ProductUpdateBody = {
+			id: 1000,
+			name: "Teste1",
+			description: created?.description!,
+			price: created?.price!,
+			categoryId: created?.category.id!
+		}
+
+		const updateUseCase = new ProductUpdateUseCase(productRepository, categoryRepository);
+		await updateUseCase.execute(toUpdate);
+
+		expect(productRepository.products).toHaveLength(1);
+		expect(productRepository.products[0].name).toBe("Teste");
+		expect(updateUseCase.hasErrors()).toBeTruthy();
+		expect(updateUseCase.getErrors()[0]).toMatchObject({
+			type: 'ValidationError',
+			message: "Product not found!"
+		})
+	});
+
+	test('ProductUpdateUseCase - Error Product category not found!', async () => {
+		const created = await saveMockProduct(mockedProduct);
+		const toUpdate: ProductUpdateBody = {
+			id: created?.id,
+			name: "Teste1",
+			description: created?.description!,
+			price: created?.price!,
+			categoryId: 1000
+		}
+
+		const updateUseCase = new ProductUpdateUseCase(productRepository, categoryRepository);
+		await updateUseCase.execute(toUpdate);
+
+		expect(productRepository.products).toHaveLength(1);
+		expect(productRepository.products[0].name).toBe("Teste");
+		expect(updateUseCase.hasErrors()).toBeTruthy();
+		expect(updateUseCase.getErrors()[0]).toMatchObject({
+			type: 'ValidationError',
+			message: "Product category not found!"
+		})
 	});
 });
 
