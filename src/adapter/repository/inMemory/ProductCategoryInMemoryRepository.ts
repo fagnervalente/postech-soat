@@ -10,18 +10,17 @@ export default class ProductCategoryInMemoryRepository implements ProductCategor
 			id: category.id ? category.id : Math.floor(Math.random() * Date.now())
 		};
 		this.categories.push(created);
-
+		
 		return created;
 	}
 
 	public async findById(id: number): Promise<ProductCategory | null> {
-		const finded = this.categories.find((category) => category.id == id) ?? null;
-
-		return finded;
+		const found = this.categories.find((a) => a.id == id) ?? null;
+		return found;
 	}
 
 	public async list(): Promise<ProductCategory[]> {
-		return this.categories;
+		return [...this.categories];
 	}
 
 	public async delete(id: number): Promise<void> {
@@ -39,8 +38,6 @@ export default class ProductCategoryInMemoryRepository implements ProductCategor
 	}
 
 	public async countProductReferences(categoryId: number): Promise<number> {
-		/** TODO: implementar lórgica e remover retorno mock */
-		return 0;
+		return await this.categories.find((category) => category.id == categoryId)?.products?.length || 0;
 	}
-
 }
