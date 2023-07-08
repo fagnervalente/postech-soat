@@ -18,7 +18,6 @@ export default class ProductInMemoryRepository implements ProductRepository {
 
 	public async findById(id: number): Promise<Product | null> {
 		const finded = this.products.find((product) => product.id == id) ?? null;
-
 		return finded;
 	}
 
