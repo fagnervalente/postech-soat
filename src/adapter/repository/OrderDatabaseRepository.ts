@@ -20,4 +20,10 @@ export default class OrderDatabaseRepository implements OrderRepository {
 		await this.orderRepository.update(orderId, order);
 		return;
 	}
+
+	
+	async findById(id: number): Promise<Order | null> {
+		return await this.orderRepository.findOneBy({ id });
+	}
+	
 }

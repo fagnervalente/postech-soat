@@ -59,7 +59,8 @@ export default class CreateUseCase extends AbstractUseCase {
 		const getProduct = new ProductFindByIdUseCase(this.productRepository);
 		let productsFound: Product[] = []
 
-		for (const id of order.products) {
+		for (const idOrProduct of order.products) {
+			const id = typeof idOrProduct === "number" ? idOrProduct : idOrProduct.id;
 			const product = await getProduct.execute(Number(id));
 
 			if (getProduct.hasErrors()) {

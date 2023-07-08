@@ -1,9 +1,12 @@
 import { Order } from "../../../../database/entities/Order";
 import OrderRepository from "../../ports/OrderRepository";
+import AbstractUseCase from "../AbstractUseCase";
 
-export default class ListUseCase {
+export default class ListUseCase extends AbstractUseCase{
 
-	constructor(readonly orderRepository: OrderRepository) { }
+	constructor(readonly orderRepository: OrderRepository) {
+		super(orderRepository);
+	}
 
 	async execute(): Promise<Order[] | null> {
 		return await this.orderRepository.list();
