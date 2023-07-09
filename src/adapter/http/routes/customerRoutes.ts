@@ -1,6 +1,6 @@
 import { CustomerController } from '../controllers/CustomerController';
 import { Router } from "express";
-import HttpUtils from '../Utils';
+import HttpUtils from '../HttpUtils';
 
 const customerRoutes = HttpUtils.asyncRouterHandler(Router());
 

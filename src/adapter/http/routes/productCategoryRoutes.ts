@@ -1,6 +1,6 @@
 import { ProductCategoryController } from './../controllers/ProductCategoryController';
 import { Router } from "express";
-import HttpUtils from "../Utils";
+import HttpUtils from "../HttpUtils";
 
 const productCategoryRoutes = HttpUtils.asyncRouterHandler(Router());
 

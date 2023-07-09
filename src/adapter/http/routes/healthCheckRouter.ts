@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import HttpUtils from "../Utils";
+import HttpUtils from "../HttpUtils";
 
 const healthCheckRoutes = HttpUtils.asyncRouterHandler(Router());
 
