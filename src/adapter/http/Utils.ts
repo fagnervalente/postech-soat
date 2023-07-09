@@ -1,13 +1,34 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response, Router } from "express";
 
-/**
- * Executa método da controller e
- * em caso de falha, erro é capturado pelo error handler do adapter (HttpAdapter::setErrorHandler)
- */
-export const handleRequest = (controller: Function) => async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		await controller(req, res);
-	} catch (error) {
-		return next(error);
+export default class HttpUtils {
+
+	/**
+	 * Aplica o asyncHandler nos recursos assíncronos do Router informado
+	 *
+	 * @param {Router} router
+	 * @returns {Router}
+	 */
+	public static asyncRouterHandler(router: any): Router {
+		const methods: string[] = ['get', 'post', 'put', 'delete'];
+
+    for (let key in router) {
+			if (methods.includes(key)) {
+					let method = router[key]
+					router[key] = (path: string, ...callbacks: RequestHandler[]) => method.call(router, path, ...callbacks.map(cb => HttpUtils.asyncHandler(cb)))
+			}
+	}
+
+		return router;
+	}
+
+	/**
+	 * Trata rejeições / falhas de recursos assíncronos da API, encaminhando para error handler (HttpAdapter::setErrorHandler)
+	 */
+	private static asyncHandler(fn: RequestHandler) {
+		return (req: Request, res: Response, next: NextFunction) => {
+			return Promise
+				.resolve(fn(req, res, next))
+				.catch(next);
+		};
 	}
 }
