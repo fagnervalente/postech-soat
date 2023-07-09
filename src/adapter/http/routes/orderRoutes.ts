@@ -1,7 +1,8 @@
 import { Router } from "express";
 import OrderController from '../controllers/OrderController';
+import HttpUtils from "../Utils";
 
-const orderRoutes = Router();
+const orderRoutes = HttpUtils.asyncRouterHandler(Router());
 
 orderRoutes.get('/order', new OrderController().list);
 orderRoutes.post('/order/checkout', new OrderController().checkout);

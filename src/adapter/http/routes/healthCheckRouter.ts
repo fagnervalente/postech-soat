@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
+import HttpUtils from "../Utils";
 
-const healthCheckRoutes = Router();
+const healthCheckRoutes = HttpUtils.asyncRouterHandler(Router());
 
 type HealthCheckResponse = {
 	uptime: number;

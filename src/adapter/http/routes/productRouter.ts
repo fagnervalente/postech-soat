@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { ProductController } from "../controllers/ProductController";
+import HttpUtils from "../Utils";
 
-const productRouter = Router();
+const productRouter =  HttpUtils.asyncRouterHandler(Router());
 
 productRouter.get('/product/category/:categoryId', new ProductController().getByCategory);
 productRouter.get('/product/:id', new ProductController().getById);

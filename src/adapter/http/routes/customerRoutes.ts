@@ -1,7 +1,8 @@
 import { CustomerController } from '../controllers/CustomerController';
 import { Router } from "express";
+import HttpUtils from '../Utils';
 
-const customerRoutes = Router();
+const customerRoutes = HttpUtils.asyncRouterHandler(Router());
 
 customerRoutes.get('/customer', new CustomerController().list);
 customerRoutes.get('/customer/:cpf', new CustomerController().getCustomerByCPF);
