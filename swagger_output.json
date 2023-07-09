@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "Postech - Self Service",
-    "description": "Documentação sobre os endpoints fornecidos."
+    "description": "Documentação sobre os endpoints fornecidos pela API."
   },
   "host": "localhost:3000",
   "basePath": "/",
