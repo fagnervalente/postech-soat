@@ -12,7 +12,7 @@ export default class OrderDatabaseRepository implements OrderRepository {
 	}
 
 	list(): Promise<Order[]> {
-		return this.orderRepository.find({ relations: ["products"] });
+		return this.orderRepository.find({ relations: ["products", "customer"] });
 	}
 
 	async update(order: Order): Promise<void> {
@@ -21,9 +21,9 @@ export default class OrderDatabaseRepository implements OrderRepository {
 		return;
 	}
 
-	
+
 	async findById(id: number): Promise<Order | null> {
 		return await this.orderRepository.findOneBy({ id });
 	}
-	
+
 }
