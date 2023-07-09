@@ -13,8 +13,8 @@ export default class HttpUtils {
 
 		for (let key in router) {
 			if (methods.includes(key)) {
-				let method = router[key]
-				router[key] = (path: string, ...callbacks: RequestHandler[]) => method.call(router, path, ...callbacks.map(cb => HttpUtils.asyncHandler(cb)))
+				let method = router[key];
+				router[key] = (path: string, ...callbacks: RequestHandler[]) => method.call(router, path, ...callbacks.map(cb => HttpUtils.asyncHandler(cb)));
 			}
 		}
 
