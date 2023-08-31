@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-db
+  labels:
+    app: delivery-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery-db
+  template:
+    metadata:
+      name: delivery-db
+      labels:
+        app: delivery-db
+    spec:
+      containers:
+        - name: mongodb
+          image: postgres:14-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: db-configmap
+          env:
+            - name: POSTGRES_DB
+              value: $(DATABASE_NAME)
+            - name: POSTGRES_USER
+              value: $(DATABASE_USER)
+            - name: POSTGRES_PASSWORD
+              value: $(DATABASE_PASSWORD)
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdb
+      volumes:
+        - name: postgresdb
+          persistentVolumeClaim:
+            claimName: delivery-db-pvc
