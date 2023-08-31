@@ -12,4 +12,4 @@ spec:
   storageClassName: local-storage
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/valente/git/postech-soat/infra/data
+    path: postgresdata
