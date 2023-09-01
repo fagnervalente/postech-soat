@@ -13,3 +13,7 @@ spec:
       envFrom:
         - configMapRef:
             name: delivery-configmap
+      resources:
+        requests:
+          cpu: 1m
+        
