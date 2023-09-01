@@ -1,17 +1,17 @@
-import { Product } from '../../src/database/entities/Product';
-import { ProductCategory } from "../../src/database/entities/ProductCategory";
-import ProductCategoryInMemoryRepository from '../../src/adapter/repository/inMemory/ProductCategoryInMemoryRepository';
-import ProductCategoryCreateUseCase from "../../src/core/application/useCase/ProductCategory/ProductCategoryCreateUseCase";
-import ProductCategoryFindByIdUseCase from "../../src/core/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
-import ProductCategoryUpdateUseCase from "../../src/core/application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
-import ProductCategoryDeleteUseCase from "../../src/core/application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
-import ProductCategoryListUseCase from "../../src/core/application/useCase/ProductCategory/ProductCategoryListUseCase";
+import { Product } from '../../src/domain/models/Product';
+import { ProductCategory } from "../../src/domain/models/ProductCategory";
+import ProductCategoryInMemoryRepository from '../utils/repositoryInMemory/ProductCategoryInMemoryRepository';
+import ProductCategoryCreateUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryCreateUseCase";
+import ProductCategoryFindByIdUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
+import ProductCategoryUpdateUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
+import ProductCategoryDeleteUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
+import ProductCategoryListUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryListUseCase";
 
 const categoryRepository = new ProductCategoryInMemoryRepository();
 
-const mockedCategory = {name: "Sobremesa"};
+const mockedCategory = { name: "Sobremesa" };
 const mockedCategoryProducts = [
-	{id: 1, name: "Pudim", description: "Pudim tradicional com calda de caramelo", price: 12.9} as Product
+	{ id: 1, name: "Pudim", description: "Pudim tradicional com calda de caramelo", price: 12.9 } as Product
 ];
 
 const createUseCase = new ProductCategoryCreateUseCase(categoryRepository);
@@ -33,7 +33,7 @@ describe('Test product categories use cases', () => {
 	test('ProductCategoryCreateUseCase - Success', async () => {
 		const created = await saveMockCategory(mockedCategory);
 		const expected = { ...mockedCategory, id: created?.id };
-		
+
 		expect(created).toEqual(expected);
 		expect(createUseCase.hasErrors()).toBeFalsy();
 	});
@@ -41,10 +41,10 @@ describe('Test product categories use cases', () => {
 	//FindById
 	test('ProductCategoryFindByIdUseCase - Success', async () => {
 		const created = await saveMockCategory(mockedCategory);
-		
+
 		const findUseCase = new ProductCategoryFindByIdUseCase(categoryRepository);
 		const found = await findUseCase.execute(created?.id!);
-		
+
 		expect(found).toMatchObject(created!);
 		expect(findUseCase.hasErrors()).toBeFalsy();
 	});
@@ -83,10 +83,10 @@ describe('Test product categories use cases', () => {
 		expect(categoryRepository.categories[0].name).toBe(newName);
 		expect(updateUseCase.hasErrors()).toBeFalsy();
 	});
-	
+
 	test('ProductCategoryUpdateUseCase - Error non-existent category', async () => {
 		const updateUseCase = new ProductCategoryUpdateUseCase(categoryRepository);
-		await updateUseCase.execute({id: 1, name: "Lanche"} as ProductCategory);
+		await updateUseCase.execute({ id: 1, name: "Lanche" } as ProductCategory);
 
 		expect(updateUseCase.hasErrors()).toBeTruthy();
 	});
@@ -112,7 +112,7 @@ describe('Test product categories use cases', () => {
 	test('ProductCategoryDeleteUseCase - Error category is in use', async () => {
 		const createdCategory = await saveMockCategory(mockedCategory);
 		createdCategory!.products = mockedCategoryProducts;
-		
+
 		const deleteUseCase = new ProductCategoryDeleteUseCase(categoryRepository);
 		await deleteUseCase.execute(createdCategory?.id!);
 

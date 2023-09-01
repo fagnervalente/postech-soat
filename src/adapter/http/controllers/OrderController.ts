@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { Order } from "../../../database/entities/Order";
+import { Order } from "../../../domain/models/Order";
 import OrderDatabaseRepository from "../../repository/OrderDatabaseRepository";
 import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
-import CreateUseCase from "../../../core/application/useCase/Order/CreateUseCase";
-import ListUseCase from "../../../core/application/useCase/Order/ListUseCase";
+import CreateUseCase from "../../../application/useCase/Order/CreateUseCase";
+import ListUseCase from "../../../application/useCase/Order/ListUseCase";
 
 const orderRepository = new OrderDatabaseRepository();
 const customerRepository = new CustomerDatabaseRepository();

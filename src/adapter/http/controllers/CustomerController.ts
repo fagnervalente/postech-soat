@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
-import CreateUseCase from "../../../core/application/useCase/Customer/CreateUseCase";
-import FindByCPFUseCase from "../../../core/application/useCase/Customer/FindByCPFUseCase";
-import DeleteUseCase from "../../../core/application/useCase/Customer/DeleteUseCase";
-import ListUseCase from "../../../core/application/useCase/Customer/ListUseCase";
+import CreateUseCase from "../../../application/useCase/Customer/CreateUseCase";
+import FindByCPFUseCase from "../../../application/useCase/Customer/FindByCPFUseCase";
+import DeleteUseCase from "../../../application/useCase/Customer/DeleteUseCase";
+import ListUseCase from "../../../application/useCase/Customer/ListUseCase";
 
 const customerRepository = new CustomerDatabaseRepository();
 
