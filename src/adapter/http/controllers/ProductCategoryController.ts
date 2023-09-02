@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
-import ProductCategoryCreateUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryCreateUseCase";
-import ProductCategoryFindByIdUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
-import ProductCategoryUpdateUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
-import ProductCategoryDeleteUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
-import ProductCategoryListUseCase from "../../../core/application/useCase/ProductCategory/ProductCategoryListUseCase";
+import ProductCategoryCreateUseCase from "../../../application/useCase/ProductCategory/ProductCategoryCreateUseCase";
+import ProductCategoryFindByIdUseCase from "../../../application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
+import ProductCategoryUpdateUseCase from "../../../application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
+import ProductCategoryDeleteUseCase from "../../../application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
+import ProductCategoryListUseCase from "../../../application/useCase/ProductCategory/ProductCategoryListUseCase";
 
 const productCategoryRepository = new ProductCategoryDatabaseRepository();
 

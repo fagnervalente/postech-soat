@@ -3,7 +3,7 @@ import routes from './routes/main';
 import * as core from 'express-serve-static-core';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../../../swagger_output.json';
-import InternalServerError from '../../core/domain/Error/InternalServerError';
+import InternalServerError from '../../domain/error/InternalServerError';
 
 export default class HttpAdapter {
 	constructor(readonly server: core.Express) {

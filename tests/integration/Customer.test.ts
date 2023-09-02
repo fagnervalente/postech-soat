@@ -1,9 +1,9 @@
-import { Customer } from '../../src/database/entities/Customer';
-import CustomerInMemoryRepository from '../../src/adapter/repository/inMemory/CustomerInMemoryRepository';
-import ListUseCase from '../../src/core/application/useCase/Customer/ListUseCase';
-import CreateUseCase from '../../src/core/application/useCase/Customer/CreateUseCase';
-import FindByCPFUseCase from '../../src/core/application/useCase/Customer/FindByCPFUseCase';
-import DeleteUseCase from '../../src/core/application/useCase/Customer/DeleteUseCase';
+import { Customer } from '../../src/domain/models/Customer';
+import CustomerInMemoryRepository from '../utils/repositoryInMemory/CustomerInMemoryRepository';
+import ListUseCase from '../../src/application/useCase/Customer/ListUseCase';
+import CreateUseCase from '../../src/application/useCase/Customer/CreateUseCase';
+import FindByCPFUseCase from '../../src/application/useCase/Customer/FindByCPFUseCase';
+import DeleteUseCase from '../../src/application/useCase/Customer/DeleteUseCase';
 
 const customerRepository = new CustomerInMemoryRepository();
 const mockedList = [
