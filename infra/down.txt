@@ -1,10 +1,11 @@
 kubectl delete -f hpa.yml
+kubectl apply -f metrics.yml
 
 kubectl delete -f svc-api.yml
-kubectl delete -f pod-api.yml
+kubectl delete -f deployment-api.yml
 
 kubectl delete -f svc-db.yml
-kubectl delete -f pod-db.yml
+kubectl delete -f deployment-db.yml
 
 kubectl delete -f pvc-db.yml
 kubectl delete -f pv.yml
