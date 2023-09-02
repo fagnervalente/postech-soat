@@ -1,23 +1,23 @@
-import CreateUseCase from "../../src/core/application/useCase/Order/CreateUseCase";
-import ListUseCase from "../../src/core/application/useCase/Order/ListUseCase";
-import UpdateUseCase from "../../src/core/application/useCase/Order/UpdateUseCase";
-import OrderInMemoryRepository from '../../src/adapter/repository/inMemory/OrderInMemoryRepository';
-import ProductInMemoryRepository from '../../src/adapter/repository/inMemory/ProductInMemoryRepository';
-import CustomerInMemoryRepository from '../../src/adapter/repository/inMemory/CustomerInMemoryRepository';
-import { Customer } from "../../src/database/entities/Customer";
-import { Product } from "../../src/database/entities/Product";
-import { Order, OrderPaymentStatus, OrderStatus } from "../../src/database/entities/Order";
-import { ProductCategory } from "../../src/database/entities/ProductCategory";
-import ProductCategoryInMemoryRepository from "../../src/adapter/repository/inMemory/ProductCategoryInMemoryRepository";
+import CreateUseCase from "../../src/application/useCase/Order/CreateUseCase";
+import ListUseCase from "../../src/application/useCase/Order/ListUseCase";
+import UpdateUseCase from "../../src/application/useCase/Order/UpdateUseCase";
+import OrderInMemoryRepository from '../utils/repositoryInMemory/OrderInMemoryRepository';
+import ProductInMemoryRepository from '../utils/repositoryInMemory/ProductInMemoryRepository';
+import CustomerInMemoryRepository from '../utils/repositoryInMemory/CustomerInMemoryRepository';
+import { Customer } from "../../src/domain/models/Customer";
+import { Product } from "../../src/domain/models/Product";
+import { Order, OrderPaymentStatus, OrderStatus } from "../../src/domain/models/Order";
+import { ProductCategory } from "../../src/domain/models/ProductCategory";
+import ProductCategoryInMemoryRepository from "../utils/repositoryInMemory/ProductCategoryInMemoryRepository";
 
-const mockedCustomers: Customer[] = [{id: 1, name: "Panguji Piranti Lunak", cpf: "12312312312", email: "panguji@gmail.com"}];
+const mockedCustomers: Customer[] = [{ id: 1, name: "Panguji Piranti Lunak", cpf: "12312312312", email: "panguji@gmail.com" }];
 
-const mockedCategories: ProductCategory[] = [{name: 'Sobremesa', id: 1}];
+const mockedCategories: ProductCategory[] = [{ name: 'Sobremesa', id: 1 }];
 
 const mockedProduct: Product = {
 	id: 1,
-	name: "Pudim", 
-	description: "Pudim tradicional com calda de caramelo", 
+	name: "Pudim",
+	description: "Pudim tradicional com calda de caramelo",
 	price: 12.9,
 	category: mockedCategories[0]
 };
@@ -60,7 +60,7 @@ describe('Test order use cases', () => {
 	});
 
 	test('CreateUseCase - Error Order must have at least one product', async () => {
-		await saveMockOrder({...mockedOrder, products: []});
+		await saveMockOrder({ ...mockedOrder, products: [] });
 		expect(createUseCase.hasErrors()).toBeTruthy();
 		expect(createUseCase.getErrors()).toHaveLength(1);
 	});
@@ -78,7 +78,7 @@ describe('Test order use cases', () => {
 	//Update
 	test('UpdateUseCase - Success', async () => {
 		const created = await saveMockOrder(mockedOrder);
-		
+
 		const toUpdate: Order = {
 			id: created?.id!,
 			status: OrderStatus.FINALIZADO
@@ -94,7 +94,7 @@ describe('Test order use cases', () => {
 
 	test('UpdateUseCase - Error must have required property "id"', async () => {
 		const created = await saveMockOrder(mockedOrder);
-		
+
 		const toUpdate: Order = {
 			status: OrderStatus.FINALIZADO
 		}
@@ -121,7 +121,7 @@ describe('Test order use cases', () => {
 	});
 });
 
-async function saveMockOrder(mock: Order|any): Promise<Order | null> {
+async function saveMockOrder(mock: Order | any): Promise<Order | null> {
 	const created = await createUseCase.execute(mock);
 	return created;
 }

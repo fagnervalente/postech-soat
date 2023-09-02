@@ -1,6 +1,6 @@
 import { AppDataSource } from "../../data-source";
-import OrderRepository from "../../core/application/ports/OrderRepository";
-import { Order } from "../../database/entities/Order";
+import OrderRepository from "../../ports/OrderRepository";
+import { Order } from "../../domain/models/Order";
 
 export default class OrderDatabaseRepository implements OrderRepository {
 

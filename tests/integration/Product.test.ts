@@ -1,12 +1,12 @@
-import { Product } from './../../src/database/entities/Product';
-import { ProductCategory } from "../../src/database/entities/ProductCategory";
-import ProductCategoryInMemoryRepository from '../../src/adapter/repository/inMemory/ProductCategoryInMemoryRepository';
-import ProductCreateUseCase from '../../src/core/application/useCase/Product/ProductCreateUseCase';
-import ProductInMemoryRepository from '../../src/adapter/repository/inMemory/ProductInMemoryRepository';
-import ProductDeleteUseCase from '../../src/core/application/useCase/Product/ProductDeleteUseCase';
-import ProductFindByIdUseCase from '../../src/core/application/useCase/Product/ProductFindByIdUseCase';
-import ProductListByCategoryUseCase from '../../src/core/application/useCase/Product/ProductListByCategoryUseCase';
-import { ProductUpdateUseCase, ProductUpdateBody } from '../../src/core/application/useCase/Product/ProductUpdateUseCase';
+import { Product } from './../../src/domain/models/Product';
+import { ProductCategory } from "../../src/domain/models/ProductCategory";
+import ProductCategoryInMemoryRepository from '../utils/repositoryInMemory/ProductCategoryInMemoryRepository';
+import ProductCreateUseCase from '../../src/application/useCase/Product/ProductCreateUseCase';
+import ProductInMemoryRepository from '../utils/repositoryInMemory/ProductInMemoryRepository';
+import ProductDeleteUseCase from '../../src/application/useCase/Product/ProductDeleteUseCase';
+import ProductFindByIdUseCase from '../../src/application/useCase/Product/ProductFindByIdUseCase';
+import ProductListByCategoryUseCase from '../../src/application/useCase/Product/ProductListByCategoryUseCase';
+import { ProductUpdateUseCase, ProductUpdateBody } from '../../src/application/useCase/Product/ProductUpdateUseCase';
 
 const categoryRepository = new ProductCategoryInMemoryRepository();
 const mockCategoriesList: ProductCategory[] = [
