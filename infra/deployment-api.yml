@@ -15,6 +15,10 @@ spec:
       labels:
         app: api-delivery
     spec:
+      initContainers:
+        - name: wait-for-database
+          image: busybox
+          command: ['sh', '-c', 'until nc -z -v -w5 svc-db-delivery 5432; do echo waiting for database init; sleep 2; done;']
       containers:
         - name: api-delivery-container
           image: fagnervalente/postech-soat-webserver
