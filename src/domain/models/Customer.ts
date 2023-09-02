@@ -3,18 +3,18 @@ import { Order } from './Order';
 
 @Entity('customers')
 export class Customer {
-  @PrimaryGeneratedColumn()
-  id?: number;
+	@PrimaryGeneratedColumn()
+	id?: number;
 
-  @Column({ type: 'text', nullable: false })
-  name: string;
+	@Column({ type: 'text', nullable: false })
+	name: string;
 
-  @Column({ type: 'text', unique: true, nullable: false })
-  cpf: string;
+	@Column({ type: 'text', unique: true, nullable: false })
+	cpf: string;
 
-  @Column({ type: 'text', unique: true, nullable: false })
-  email: string;
+	@Column({ type: 'text', nullable: false })
+	email: string;
 
-  @OneToMany(() => Order, order => order.customer)
-  orders?: Order[]
+	@OneToMany(() => Order, order => order.customer)
+	orders?: Order[]
 }
