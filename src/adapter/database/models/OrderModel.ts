@@ -54,4 +54,13 @@ export class OrderModel {
 
   @Column({ type: 'decimal', precision: 15, scale: 2, nullable: false })
   totalPrice?: number;
+
+	constructor(id: number | undefined, status: OrderStatus | undefined, paymentStatus: OrderPaymentStatus | undefined, products: ProductModel[] | undefined, customer: CustomerModel | undefined, totalPrice: number | undefined) {
+		this.id = id;
+		this.status = status;
+		this.paymentStatus = paymentStatus;
+		this.products = products;
+		this.customer = customer;
+		this.totalPrice = totalPrice;
+	}
 }
