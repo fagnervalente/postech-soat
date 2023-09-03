@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import OrderRepository from "../../ports/OrderRepository";
-import { Order } from "../../domain/models/Order";
+import { Order, OrderStatus } from "../../domain/models/Order";
+import { Not } from "typeorm";
 
 export default class OrderDatabaseRepository implements OrderRepository {
 
@@ -12,7 +13,16 @@ export default class OrderDatabaseRepository implements OrderRepository {
 	}
 
 	list(): Promise<Order[]> {
-		return this.orderRepository.find({ relations: ["products", "customer"] });
+		return this.orderRepository.find({
+			relations: ["products", "customer"],
+			where: [{
+				status: Not(OrderStatus.FINALIZADO)
+			}],
+			order: {
+				status: "DESC",
+				id: "DESC",
+			},
+		});
 	}
 
 	async update(order: Order): Promise<void> {
