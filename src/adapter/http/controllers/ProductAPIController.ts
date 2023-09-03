@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ProductController } from "../controllers/ProductController";
+import { ProductController } from "../../../controllers/ProductController";
 import ProductCategoryDatabaseRepository from "src/adapter/repository/ProductCategoryDatabaseRepository";
 import ProductDatabaseRepository from "src/adapter/repository/ProductDatabaseRepository";
 

@@ -19,7 +19,7 @@
 			"@entities/*": ["./src/domain/entities/*"],
 			"@entities": ["./src/domain/entities/index.ts"],
 			"@useCases/*": ["./src/application/useCase/*"],
-			"@ports/*": ["./src/domain/ports/*"],
+			"@ports/*": ["./src/ports/*"],
 			"@controlers/*": ["./src/controlers/*"],
 			"@validation/*": ["./src/application/validation/*"],
 			"@database/*": ["./src/adapter/database/*"],

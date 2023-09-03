@@ -1,8 +1,8 @@
-import ProductCreateUseCase from "../../../application/useCase/Product/ProductCreateUseCase";
-import ProductListByCategoryUseCase from "../../../application/useCase/Product/ProductListByCategoryUseCase";
-import ProductDeleteUseCase from "../../../application/useCase/Product/ProductDeleteUseCase";
-import ProductFindByIdUseCase from "../../../application/useCase/Product/ProductFindByIdUseCase";
-import { ProductUpdateBody, ProductUpdateUseCase } from '../../../application/useCase/Product/ProductUpdateUseCase';
+import ProductCreateUseCase from "../application/useCase/Product/ProductCreateUseCase";
+import ProductListByCategoryUseCase from "../application/useCase/Product/ProductListByCategoryUseCase";
+import ProductDeleteUseCase from "../application/useCase/Product/ProductDeleteUseCase";
+import ProductFindByIdUseCase from "../application/useCase/Product/ProductFindByIdUseCase";
+import { ProductUpdateBody, ProductUpdateUseCase } from '../application/useCase/Product/ProductUpdateUseCase';
 import ProductRepository from "src/ports/ProductRepository";
 import ProductCategoryRepository from "src/ports/ProductCategoryRepository";
 import { Product } from "@entities/Product";
