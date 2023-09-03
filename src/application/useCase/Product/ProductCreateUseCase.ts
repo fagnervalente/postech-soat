@@ -2,7 +2,7 @@ import { Product } from "../../../domain/models/Product";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/createProduct";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
+import ProductCategoryRepository from "../../../domain/ports/IProductCategoryRepository";
 import { ProductCategory } from "../../../domain/models/ProductCategory";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
 

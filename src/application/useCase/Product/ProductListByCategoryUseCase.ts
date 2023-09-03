@@ -1,6 +1,6 @@
 import { Product } from "../../../domain/models/Product";
 import { ProductCategory } from "../../../domain/models/ProductCategory";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
+import ProductCategoryRepository from "../../../domain/ports/IProductCategoryRepository";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';

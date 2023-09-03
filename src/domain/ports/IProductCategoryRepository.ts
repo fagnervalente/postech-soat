@@ -1,4 +1,4 @@
-import { ProductCategory } from "../domain/models/ProductCategory";
+import { ProductCategory } from "@entities/ProductCategory";
 
 export default interface ProductCategoryRepository {
 	save(category: ProductCategory): Promise<ProductCategory>;

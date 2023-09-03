@@ -1,5 +1,5 @@
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import AbstractUseCase from "../AbstractUseCase";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
+import AbstractUseCase from "@useCases/AbstractUseCase";
 
 export default class ProductCategoryDeleteUseCase extends AbstractUseCase {
 
