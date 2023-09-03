@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../database/data-source";
 import ProductCategoryRepository from "../../ports/ProductCategoryRepository";
 import { ProductCategory } from "../../domain/models/ProductCategory";
 
