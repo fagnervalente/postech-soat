@@ -1,5 +1,5 @@
 import { Product } from "@entities/Product";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';

@@ -1,9 +1,9 @@
 import { ProductCategory } from "@entities/ProductCategory";
-import { AppDataSource } from "../database/data-source";
-import ProductCategoryRepository from "../../ports/ProductCategoryRepository";
-import { ProductCategoryModel } from "../database/models/ProductCategoryModel";
+import { AppDataSource } from "../data-source";
+import IProductCategoryRepository from "@ports/IProductCategoryRepository";
+import { ProductCategoryModel } from "../models/ProductCategoryModel";
 
-export default class ProductCategoryDatabaseRepository implements ProductCategoryRepository {
+export default class ProductCategoryDatabaseRepository implements IProductCategoryRepository {
 
 	productCategoryRepository = AppDataSource.getRepository(ProductCategoryModel);
 
@@ -18,7 +18,9 @@ export default class ProductCategoryDatabaseRepository implements ProductCategor
 	}
 
 	async list(): Promise<ProductCategory[] | null> {
-		return await this.productCategoryRepository.find();
+		return await this.productCategoryRepository.find().then((modelList: ProductCategoryModel[]) => {
+			return modelList.map(m => ProductCategoryDatabaseRepository.mapDataModelToEntity(m));
+		});
 	}
 
 	async delete(id: number): Promise<void> {

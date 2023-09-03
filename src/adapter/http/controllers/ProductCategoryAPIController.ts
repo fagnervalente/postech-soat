@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
+import ProductCategoryDatabaseRepository from "@database/repository/ProductCategoryDatabaseRepository";
 import ProductCategoryCreateUseCase from "../../../application/useCase/ProductCategory/ProductCategoryCreateUseCase";
 import ProductCategoryFindByIdUseCase from "../../../application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";
 import ProductCategoryUpdateUseCase from "../../../application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
 import ProductCategoryDeleteUseCase from "../../../application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
 import ProductCategoryListUseCase from "../../../application/useCase/ProductCategory/ProductCategoryListUseCase";
-
+import ProductCategoryController from "@controlers/ProductCategoryController";
 const productCategoryRepository = new ProductCategoryDatabaseRepository();
 
-export class ProductCategoryController {
+export default class ProductCategoryAPIController {
 
 	async create(req: Request, res: Response) {
 		// #swagger.tags = ['Category']
@@ -21,8 +21,7 @@ export class ProductCategoryController {
 		} */
 		const { name } = req.body;
 
-		const createUseCase = new ProductCategoryCreateUseCase(productCategoryRepository);
-		const result = await createUseCase.execute({ name });
+		const result = await ProductCategoryController.create(name, productCategoryRepository);
 
 		/* #swagger.responses[201] = { 
 			schema: { $ref: "#/definitions/Category" },

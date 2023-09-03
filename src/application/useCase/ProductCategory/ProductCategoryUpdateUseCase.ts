@@ -1,8 +1,8 @@
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import AbstractUseCase from "../AbstractUseCase";
-import schema from "../../validation/updateProductCategory";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
-import ProductCategoryFindByIdUseCase from "./ProductCategoryFindByIdUseCase";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
+import AbstractUseCase from "@useCases/AbstractUseCase";
+import schema from "@validation/updateProductCategory";
+import { ProductCategory } from "@entities/ProductCategory";
+import ProductCategoryFindByIdUseCase from "@useCases/ProductCategory/ProductCategoryFindByIdUseCase";
 
 export default class ProductCategoryUpdateUseCase extends AbstractUseCase {
 
@@ -17,7 +17,6 @@ export default class ProductCategoryUpdateUseCase extends AbstractUseCase {
 
 		await this.productCategoryRepository.update(category);
 	}
-
 
 	private async validateFields(category: ProductCategory): Promise<void> {
 		this.validateSchema(schema, category);

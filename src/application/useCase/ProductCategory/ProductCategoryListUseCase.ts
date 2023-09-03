@@ -1,7 +1,7 @@
 
-import { ProductCategory } from "../../../domain/models/ProductCategory";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import AbstractUseCase from "../AbstractUseCase";
+import { ProductCategory } from "@entities/ProductCategory";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
+import AbstractUseCase from "@useCases/AbstractUseCase";
 
 export default class ProductCategoryFindCategoryUseCase extends AbstractUseCase {
 

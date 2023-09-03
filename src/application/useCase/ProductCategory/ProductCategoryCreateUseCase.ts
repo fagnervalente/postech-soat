@@ -1,11 +1,12 @@
-import { ProductCategory } from "../../../domain/models/ProductCategory";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import AbstractUseCase from "../AbstractUseCase";
-import schema from "../../validation/createProductCategory";
+import { ProductCategory } from "@entities/ProductCategory";
+
+import AbstractUseCase from "@useCases/AbstractUseCase";
+import schema from "@validation/createProductCategory";
+import IProductCategoryRepository from "@ports/IProductCategoryRepository";
 
 export default class ProductCategoryCreateUseCase extends AbstractUseCase {
 
-	constructor(readonly productCategoryRepository: ProductCategoryRepository) {
+	constructor(readonly productCategoryRepository: IProductCategoryRepository) {
 		super(productCategoryRepository);
 	}
 

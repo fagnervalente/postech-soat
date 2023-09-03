@@ -1,8 +1,8 @@
-import ProductRepository from "../../../ports/ProductRepository";
+import ProductRepository from "@ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/updateProduct";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
 import ProductFindByIdUseCase from "./ProductFindByIdUseCase";
 import { Product } from "@entities/Product";
 import { ProductCategory } from "@entities/ProductCategory";
