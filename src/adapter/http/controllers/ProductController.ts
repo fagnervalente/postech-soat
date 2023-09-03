@@ -1,138 +1,63 @@
-import { Request, Response } from "express";
-import ProductCategoryDatabaseRepository from "../../repository/ProductCategoryDatabaseRepository";
-import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
 import ProductCreateUseCase from "../../../application/useCase/Product/ProductCreateUseCase";
 import ProductListByCategoryUseCase from "../../../application/useCase/Product/ProductListByCategoryUseCase";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
 import ProductDeleteUseCase from "../../../application/useCase/Product/ProductDeleteUseCase";
 import ProductFindByIdUseCase from "../../../application/useCase/Product/ProductFindByIdUseCase";
 import { ProductUpdateBody, ProductUpdateUseCase } from '../../../application/useCase/Product/ProductUpdateUseCase';
-
-const productRepository = new ProductDatabaseRepository();
-const productCategoryRepository = new ProductCategoryDatabaseRepository();
+import ProductRepository from "src/ports/ProductRepository";
+import ProductCategoryRepository from "src/ports/ProductCategoryRepository";
+import { Product } from "@entities/Product";
+import { ProductCategory } from "@entities/ProductCategory";
 
 export class ProductController {
-
-	async create(req: Request, res: Response): Promise<Response> {
-		// #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint para criar um produto.'
-		/* #swagger.parameters['createProduct'] = {
-				in: 'body',
-				description: 'Informações do produto para cadastro.',
-				required: true,
-				schema: { $ref: "#/definitions/CreateProduct" }
-		} */
-		/* #swagger.parameters['categoryId'] = { in: 'path', description: 'ID da categoria que deseja registrar o produto' } */
-		const { name, description, price } = req.body;
-		const { categoryId } = req.params ?? 0;
-
-		const productCreate = new ProductCreateUseCase(productRepository, productCategoryRepository);
+	static async create(name: string, description: string, price: number, categoryId: number, productRepository: ProductRepository, categoryRepository: ProductCategoryRepository): Promise<Product | null> {
+		const productCreate = new ProductCreateUseCase(productRepository, categoryRepository);
 		const result = await productCreate.execute({
 			name,
 			description,
 			price,
 			category: {
-				id: parseInt(categoryId)
+				id: categoryId
 			} as ProductCategory
 		});
 
-		if (productCreate.hasErrors()) {
-			return res.status(400).json(productCreate.getErrors());
-		}
+		if (productCreate.hasErrors()) throw productCreate.getErrors();
 
-		/* #swagger.responses[201] = { 
-			schema: { $ref: "#/definitions/Product" },
-			description: 'Produto cadastrado' 
-		} */
-		return res.status(201).json(result);
+		return result;
 	}
 
-	async getById(req: Request, res: Response) {
-		// #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint para obter um produto pelo id.'
-		/* #swagger.parameters['id'] = { in: 'path', description: 'ID do produto' } */
-		const { id } = req.params;
-
+	static async getById(productId: number, productRepository: ProductRepository): Promise<Product | null> {
 		const productFindById = new ProductFindByIdUseCase(productRepository);
-		const result = await productFindById.execute(Number(id));
+		const result = await productFindById.execute(productId);
 
-		if (productFindById.hasErrors()) {
-			return res.status(400).json(productFindById.getErrors());
-		}
+		if (productFindById.hasErrors()) throw productFindById.getErrors();
 
-		/* #swagger.responses[200] = { 
-			schema: { $ref: "#/definitions/Product" },
-			description: 'Produto encontrado' 
-		} */
-		return res.status(200).json(result);
+		return result;
 	}
 
+	static async getByCategory(categoryId: number, productRepository: ProductRepository, categoryRepository: ProductCategoryRepository): Promise<Product[] | null> {
+		const productListByCategory = new ProductListByCategoryUseCase(productRepository, categoryRepository);
+		const result = await productListByCategory.execute(categoryId);
 
-	async getByCategory(req: Request, res: Response) {
-		// #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint listar os produtos pelo id de uma categoria.'
-		/* #swagger.parameters['categoryId'] = { in: 'path', description: 'ID da categoria para obter os produtos pela categoria' } */
-		const { categoryId } = req.params;
+		if (productListByCategory.hasErrors()) throw productListByCategory.getErrors();
 
-		const productListByCategory = new ProductListByCategoryUseCase(productRepository, productCategoryRepository);
-		const result = await productListByCategory.execute(parseInt(categoryId));
-
-		if (productListByCategory.hasErrors()) {
-			return res.status(400).json(productListByCategory.getErrors());
-		}
-
-		/* #swagger.responses[200] = { 
-			schema: { $ref: "#/definitions/ListProduct" },
-			description: 'Produto encontrados' 
-		} */
-		return res.status(200).json(result);
+		return result;
 	}
 
-	async update(req: Request, res: Response): Promise<Response> {
-		// #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint para atualizar um produto pelo id.'
-		/* #swagger.parameters['updateProduct'] = {
-				in: 'body',
-				description: 'Informações do produto para atualização.',
-				required: true,
-				schema: { $ref: "#/definitions/UpdateProduct" }
-		} */
-		/* #swagger.parameters['id'] = { in: 'path', description: 'ID do produto' } */
-		const { name, description, price, categoryId } = req.body;
-		const { id } = req.params;
+	static async update(productId: number, name: string, description: string, price: number, categoryId: number, productRepository: ProductRepository, categoryRepository: ProductCategoryRepository): Promise<void> {
+		const productUpdate = new ProductUpdateUseCase(productRepository, categoryRepository);
+		const result = await productUpdate.execute(<ProductUpdateBody>{ id: productId, name, description, price, categoryId });
 
-		const productUpdate = new ProductUpdateUseCase(productRepository, productCategoryRepository);
-		const result = await productUpdate.execute(<ProductUpdateBody>{ id: Number(id), name, description, price, categoryId });
+		if (productUpdate.hasErrors()) throw productUpdate.getErrors();
 
-		if (productUpdate.hasErrors()) {
-			return res.status(400).json(productUpdate.getErrors());
-		}
-
-		/* #swagger.responses[200] = { 
-			schema: { $ref: "#/definitions/Product" },
-			description: 'Produto atualizado' 
-		} */
-		return res.status(200).json(result);
+		return result;
 	}
 
-	async delete(req: Request, res: Response) {
-		// #swagger.tags = ['Product']
-		// #swagger.description = 'Endpoint para remover um produto pelo id.'
-		/* #swagger.parameters['id'] = { in: 'path', description: 'ID do produto' } */
-		const { id } = req.params;
-
-		const productId = Number(id);
+	static async delete(productId: number, productRepository: ProductRepository): Promise<void | null> {
 		const productDelete = new ProductDeleteUseCase(productRepository);
-		productDelete.execute(productId);
+		const result = productDelete.execute(productId);
 
-		if (productDelete.hasErrors()) {
-			return res.status(400).json(productDelete.getErrors());
-		}
+		if (productDelete.hasErrors()) throw productDelete.getErrors();
 
-		/* #swagger.responses[201] = { 
-			schema: { $ref: "#/definitions/Product" },
-			description: 'Produto removido' 
-		} */
-		return res.status(200).json();
+		return result;
 	}
 }

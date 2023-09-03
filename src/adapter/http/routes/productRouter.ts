@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { ProductController } from "../controllers/ProductController";
 import HttpUtils from "../HttpUtils";
+import ProductAPIController from "../api/ProductAPIController";
 
-const productRouter =  HttpUtils.asyncRouterHandler(Router());
+const productRouter = HttpUtils.asyncRouterHandler(Router());
 
-productRouter.get('/product/category/:categoryId', new ProductController().getByCategory);
-productRouter.get('/product/:id', new ProductController().getById);
-productRouter.post('/product/:categoryId', new ProductController().create);
-productRouter.put('/product/:id', new ProductController().update);
-productRouter.delete('/product/:id', new ProductController().delete);
+productRouter.get('/product/category/:categoryId', new ProductAPIController().getByCategory);
+productRouter.get('/product/:id', new ProductAPIController().getById);
+productRouter.post('/product/:categoryId', new ProductAPIController().create);
+productRouter.put('/product/:id', new ProductAPIController().update);
+productRouter.delete('/product/:id', new ProductAPIController().delete);
 
 export default productRouter;
