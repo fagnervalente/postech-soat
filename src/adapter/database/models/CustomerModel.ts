@@ -16,5 +16,13 @@ export class CustomerModel {
 	email: string;
 
 	@OneToMany(() => OrderModel, order => order.customer)
-	orders?: OrderModel[]
+	orders?: OrderModel[];
+
+	constructor(id: number | undefined, name: string, cpf: string, email: string, orders: OrderModel[] | undefined) {
+		this.id = id;
+		this.name = name;
+		this.cpf = cpf;
+		this.email = email;
+		this.orders = orders;
+	}
 }

@@ -11,4 +11,9 @@ export class ProductCategoryModel {
 
   @OneToMany(() => ProductModel, product => product.category)
   products?: ProductModel[]
+
+	constructor(id: number | undefined, name: string) {
+		this.id = id;
+		this.name = name;
+	}
 }

@@ -22,4 +22,13 @@ export class ProductModel {
 
   @ManyToMany(() => OrderModel, order => order.products)
   orders?: OrderModel[]
+
+	constructor(id: number | undefined, name: string, description: string, price: number, category: ProductCategoryModel, orders: OrderModel[]) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.orders = orders;
+	}
 }
