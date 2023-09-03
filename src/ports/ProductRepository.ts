@@ -1,5 +1,5 @@
-import { Product } from "../domain/models/Product";
-import { ProductCategory } from "../domain/models/ProductCategory";
+import { Product } from "@entities/Product";
+import { ProductCategory } from "@entities/ProductCategory";
 
 export default interface ProductRepository {
 	save(product: Product): Promise<Product>;
