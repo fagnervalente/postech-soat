@@ -1,19 +1,21 @@
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../database/data-source";
 import ProductRepository from "../../ports/ProductRepository";
-import { Product } from "../../domain/models/Product";
-import { ProductCategory } from "../../domain/models/ProductCategory";
+import { Product } from "@entities/Product";
+import { ProductCategory } from "@entities/ProductCategory";
+import { ProductModel } from "../database/models/ProductModel";
 
 export default class ProductDatabaseRepository implements ProductRepository {
 
-	productRepository = AppDataSource.getRepository(Product);
+	productRepository = AppDataSource.getRepository(ProductModel);
 
 	async save(product: Product): Promise<Product> {
-		const newProduct = this.productRepository.create(product);
-		return await this.productRepository.save(newProduct);
+		const newProductModel = this.productRepository.create(ProductDatabaseRepository.mapDataEntityToModel(product));
+		return ProductDatabaseRepository.mapDataModelToEntity(await this.productRepository.save(newProductModel))
 	}
 
 	async findById(id: number): Promise<Product | null> {
-		return await this.productRepository.findOneBy({ id });
+		const result = await this.productRepository.findOneBy({ id });
+		return result != null ? ProductDatabaseRepository.mapDataModelToEntity(result!) : null;
 	}
 
 	async delete(id: number): Promise<void> {
@@ -27,6 +29,14 @@ export default class ProductDatabaseRepository implements ProductRepository {
 
 	async listByCategory(category: ProductCategory): Promise<Product[]> {
 		return await this.productRepository.findBy({ category })
+	}
+
+	static mapDataModelToEntity(model: ProductModel): Product {
+		return new Product(model.id, model.name, model.description, model.price, model.category);
+	}
+
+	static mapDataEntityToModel(entity: Product): ProductModel {
+		return new ProductModel(entity.id, entity.name, entity.description, entity.price, entity.category);
 	}
 
 }
