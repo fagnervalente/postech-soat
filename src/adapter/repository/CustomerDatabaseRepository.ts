@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../database/data-source";
 import CustomerRepository from "../../ports/CustomerRepository";
 import { Customer } from "../../domain/models/Customer";
 
