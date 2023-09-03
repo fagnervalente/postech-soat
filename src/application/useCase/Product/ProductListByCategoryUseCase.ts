@@ -1,9 +1,9 @@
-import { Product } from "../../../domain/models/Product";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
+import { Product } from "@entities/Product";
 import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';
+import { ProductCategory } from "@entities/ProductCategory";
 
 export default class ProductListByCategoryUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;

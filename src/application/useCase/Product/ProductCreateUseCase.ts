@@ -1,10 +1,10 @@
-import { Product } from "../../../domain/models/Product";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/createProduct";
 import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
+import { Product } from "@entities/Product";
+import { ProductCategory } from "@entities/ProductCategory";
 
 export default class ProductCreateUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;

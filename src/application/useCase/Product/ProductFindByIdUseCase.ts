@@ -1,4 +1,4 @@
-import { Product } from "../../../domain/models/Product";
+import { Product } from "@entities/Product";
 import ProductRepository from "../../../ports/ProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
