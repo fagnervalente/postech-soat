@@ -9,18 +9,26 @@ export default class ProductCategoryDatabaseRepository implements IProductCatego
 
 	async save(category: ProductCategory): Promise<ProductCategory> {
 		const newProductCategory = this.productCategoryRepository.create(ProductCategoryDatabaseRepository.mapDataEntityToModel(category));
-		return ProductCategoryDatabaseRepository.mapDataModelToEntity(await this.productCategoryRepository.save(newProductCategory));
+		const savedProductCategory = await this.productCategoryRepository.save(newProductCategory);
+		return ProductCategoryDatabaseRepository.mapDataModelToEntity(savedProductCategory);
 	}
 
 	async findById(id: number): Promise<ProductCategory | null> {
 		const result = await this.productCategoryRepository.findOneBy({ id });
-		return result != null ? ProductCategoryDatabaseRepository.mapDataModelToEntity(result!) : Promise.resolve(null);
+		if (!result) {
+			Promise.resolve(null);
+		}
+		return ProductCategoryDatabaseRepository.mapDataModelToEntity(result!);
 	}
 
 	async list(): Promise<ProductCategory[] | null> {
-		return await this.productCategoryRepository.find().then((modelList: ProductCategoryModel[]) => {
-			return modelList.map(m => ProductCategoryDatabaseRepository.mapDataModelToEntity(m));
-		});
+		const productCategoryModelList = await this.productCategoryRepository.find();
+		
+		if (!productCategoryModelList) {
+			Promise.resolve(null);
+		}
+		
+		return productCategoryModelList.map(m => ProductCategoryDatabaseRepository.mapDataModelToEntity(m));
 	}
 
 	async delete(id: number): Promise<void> {
