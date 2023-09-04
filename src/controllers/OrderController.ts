@@ -1,13 +1,13 @@
-import { Order } from "../../../domain/models/Order";
-import CreateUseCase from "../../../application/useCase/Order/CreateUseCase";
-import ListUseCase from "../../../application/useCase/Order/ListUseCase";
-import UpdatePaymentStatusUseCase from "../../../application/useCase/Order/UpdatePaymentStatusUseCase";
-import OrderRepository from "../../../ports/OrderRepository";
-import PaymentStatusGateway from "../../../ports/gateway/PaymentStatusGateway";
-import { Product } from "../../../domain/models/Product";
-import CustomerRepository from "../../../ports/CustomerRepository";
-import ProductRepository from "../../../ports/ProductRepository";
-import GetOrderPaymentStatus from "../../../application/useCase/Order/GetOrderPaymentStatus";
+import { Order } from "../domain/models/Order";
+import CreateUseCase from "../application/useCase/Order/CreateUseCase";
+import ListUseCase from "../application/useCase/Order/ListUseCase";
+import UpdatePaymentStatusUseCase from "../application/useCase/Order/UpdatePaymentStatusUseCase";
+import OrderRepository from "../ports/OrderRepository";
+import PaymentStatusGateway from "../ports/gateway/PaymentStatusGateway";
+import { Product } from "../domain/models/Product";
+import CustomerRepository from "../ports/CustomerRepository";
+import ProductRepository from "../ports/ProductRepository";
+import GetOrderPaymentStatus from "../application/useCase/Order/GetOrderPaymentStatus";
 
 
 

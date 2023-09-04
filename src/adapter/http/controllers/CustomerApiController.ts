@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
-import { CustomerController } from "../../../controller/CustomerController";
+import { CustomerController } from "@controllers/CustomerController";
 
 const customerRepository = new CustomerDatabaseRepository();
 const customerController = new CustomerController(customerRepository);

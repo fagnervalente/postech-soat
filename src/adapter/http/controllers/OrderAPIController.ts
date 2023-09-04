@@ -4,7 +4,7 @@ import CustomerDatabaseRepository from "../../repository/CustomerDatabaseReposit
 import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
 import PaymentStatusGatewayMercadopago from "../../payment/PaymentStatusGatewayMercadopago";
 import MercadopagoIntegration from "../../../external/MercadopagoIntegration";
-import OrderController from "../controllers/OrderController";
+import OrderController from "../../../controllers/OrderController";
 import { errors } from "pg-promise";
 
 const orderRepository = new OrderDatabaseRepository();

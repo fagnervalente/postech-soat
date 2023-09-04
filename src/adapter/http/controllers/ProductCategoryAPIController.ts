@@ -5,7 +5,7 @@ import ProductCategoryFindByIdUseCase from "../../../application/useCase/Product
 import ProductCategoryUpdateUseCase from "../../../application/useCase/ProductCategory/ProductCategoryUpdateUseCase";
 import ProductCategoryDeleteUseCase from "../../../application/useCase/ProductCategory/ProductCategoryDeleteUseCase";
 import ProductCategoryListUseCase from "../../../application/useCase/ProductCategory/ProductCategoryListUseCase";
-import ProductCategoryController from "@controlers/ProductCategoryController";
+import ProductCategoryController from "@controllers/ProductCategoryController";
 const productCategoryRepository = new ProductCategoryDatabaseRepository();
 
 export default class ProductCategoryAPIController {
