@@ -16,7 +16,7 @@ export default class ProductCategoryDatabaseRepository implements IProductCatego
 	async findById(id: number): Promise<ProductCategory | null> {
 		const result = await this.productCategoryRepository.findOneBy({ id });
 		if (!result) {
-			Promise.resolve(null);
+			return null;
 		}
 		return ProductCategoryDatabaseRepository.mapDataModelToEntity(result!);
 	}
@@ -25,7 +25,7 @@ export default class ProductCategoryDatabaseRepository implements IProductCatego
 		const productCategoryModelList = await this.productCategoryRepository.find();
 		
 		if (!productCategoryModelList) {
-			Promise.resolve(null);
+			return null;
 		}
 		
 		return productCategoryModelList.map(m => ProductCategoryDatabaseRepository.mapDataModelToEntity(m));

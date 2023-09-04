@@ -14,11 +14,11 @@ export default class ProductCategoryController {
 	): Promise<ProductCategory | null> {
 
 		const productCategory = new ProductCategory(undefined, name);
-		const productCreate = new ProductCategoryCreateUseCase(productCategoryRepository);
-		const newProductCategory = await productCreate.execute(productCategory);
+		const productCreated = new ProductCategoryCreateUseCase(productCategoryRepository);
+		const newProductCategory = await productCreated.execute(productCategory);
 
-		if (productCreate.hasErrors()) {
-			Promise.reject(productCreate.getErrors());
+		if (productCreated.hasErrors()) {
+			Promise.reject(productCreated.getErrors());
 		}
 
 		return Promise.resolve(newProductCategory);

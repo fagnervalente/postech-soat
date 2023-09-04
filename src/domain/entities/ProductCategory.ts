@@ -3,7 +3,9 @@ export class ProductCategory {
 	readonly name: string;
 
 	constructor(id: number | undefined, name: string) {
-		this.id = id;
+		if (id) {
+			this.id = id;
+		}
 		this.name = name;
 	}
 }
