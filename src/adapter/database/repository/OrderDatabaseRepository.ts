@@ -1,6 +1,6 @@
 import { AppDataSource } from "../data-source";
 import IOrderRepository from "@ports/IOrderRepository";
-import { Order, OrderStatus } from "../../../domain/models/Order";
+import { Order, OrderStatus } from "@entities/Order";
 import { Not } from "typeorm";
 
 export default class OrderDatabaseRepository implements IOrderRepository {
