@@ -1,10 +1,10 @@
-import { Order, OrderPaymentStatus } from "../../../domain/models/Order";
-import OrderRepository from "../../../ports/OrderRepository";
+import { Order, OrderPaymentStatus } from "@entities/Order";
+import IOrderRepository from "@ports/IOrderRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
 export default class GetOrderPaymentStatus extends AbstractUseCase {
 
-	constructor(readonly orderRepository: OrderRepository) {
+	constructor(readonly orderRepository: IOrderRepository) {
 		super(orderRepository);
 	}
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ProductController } from "../../../controllers/ProductController";
-import ProductCategoryDatabaseRepository from "src/adapter/repository/ProductCategoryDatabaseRepository";
-import ProductDatabaseRepository from "src/adapter/repository/ProductDatabaseRepository";
+import { ProductController } from "@controllers/ProductController";
+import ProductCategoryDatabaseRepository from "@database/repository/ProductCategoryDatabaseRepository";
+import ProductDatabaseRepository from "@database/repository/ProductDatabaseRepository";
 
 const productRepository = new ProductDatabaseRepository();
 const productCategoryRepository = new ProductCategoryDatabaseRepository();

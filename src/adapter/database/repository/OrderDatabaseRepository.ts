@@ -1,9 +1,9 @@
-import { AppDataSource } from "../database/data-source";
-import OrderRepository from "../../ports/OrderRepository";
-import { Order, OrderStatus } from "../../domain/models/Order";
+import { AppDataSource } from "../data-source";
+import IOrderRepository from "@ports/IOrderRepository";
+import { Order, OrderStatus } from "../../../domain/models/Order";
 import { Not } from "typeorm";
 
-export default class OrderDatabaseRepository implements OrderRepository {
+export default class OrderDatabaseRepository implements IOrderRepository {
 
 	orderRepository = AppDataSource.getRepository(Order);
 

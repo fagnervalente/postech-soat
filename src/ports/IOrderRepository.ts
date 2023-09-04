@@ -1,6 +1,6 @@
 import { Order } from "../domain/models/Order";
 
-export default interface OrderRepository {
+export default interface IOrderRepository {
 	save(order: Order): Promise<Order | null>;
 	list(): Promise<Order[]>;
 	update(order: Order): Promise<void>;

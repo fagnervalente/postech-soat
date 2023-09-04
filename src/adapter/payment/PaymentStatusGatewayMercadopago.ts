@@ -1,6 +1,6 @@
-import { OrderPaymentStatus } from "../../domain/models/Order";
-import PaymentAPIIntegration from "../../ports/PaymentAPI/PaymentAPIIntegration";
-import PaymentStatusGateway from "../../ports/gateway/PaymentStatusGateway";
+import { OrderPaymentStatus } from "@database/models/OrderModel";
+import PaymentAPIIntegration from "@ports/PaymentAPI/IPaymentAPIIntegration";
+import PaymentStatusGateway from "@ports/gateway/IPaymentStatusGateway";
 
 const STATUS_APROVED = 'approved';
 

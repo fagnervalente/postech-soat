@@ -5,7 +5,7 @@ import ProductCategoryRepository from "@ports/IProductCategoryRepository";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
 import { Product } from "@entities/Product";
 import { ProductCategory } from "@entities/ProductCategory";
-import ProductRepository from "@ports/ProductRepository";
+import ProductRepository from "@ports/IProductRepository";
 
 export default class ProductCreateUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;

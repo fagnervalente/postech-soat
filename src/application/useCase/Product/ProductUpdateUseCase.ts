@@ -1,4 +1,4 @@
-import ProductRepository from "@ports/ProductRepository";
+import ProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/updateProduct";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";

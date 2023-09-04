@@ -1,6 +1,6 @@
 import { Product } from "@entities/Product";
 import ProductCategoryRepository from "@ports/IProductCategoryRepository";
-import ProductRepository from "../../../ports/ProductRepository";
+import IProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';
 import { ProductCategory } from "@entities/ProductCategory";
@@ -8,7 +8,7 @@ import { ProductCategory } from "@entities/ProductCategory";
 export default class ProductListByCategoryUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;
 
-	constructor(readonly repository: ProductRepository, productCategoryRepository: ProductCategoryRepository) {
+	constructor(readonly repository: IProductRepository, productCategoryRepository: ProductCategoryRepository) {
 		super(repository);
 		this.productCategoryRepository = productCategoryRepository;
 	}

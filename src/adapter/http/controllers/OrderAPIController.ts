@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import OrderDatabaseRepository from "../../repository/OrderDatabaseRepository";
-import CustomerDatabaseRepository from "../../repository/CustomerDatabaseRepository";
-import ProductDatabaseRepository from "../../repository/ProductDatabaseRepository";
+import OrderDatabaseRepository from "@database/repository/OrderDatabaseRepository";
+import CustomerDatabaseRepository from "@database/repository/CustomerDatabaseRepository";
+import ProductDatabaseRepository from "@database/repository/ProductDatabaseRepository";
 import PaymentStatusGatewayMercadopago from "../../payment/PaymentStatusGatewayMercadopago";
 import MercadopagoIntegration from "../../../external/MercadopagoIntegration";
-import OrderController from "../../../controllers/OrderController";
-import { errors } from "pg-promise";
+import OrderController from "@controllers/OrderController";
 
 const orderRepository = new OrderDatabaseRepository();
 const customerRepository = new CustomerDatabaseRepository();

@@ -1,9 +1,9 @@
-import { AppDataSource } from "../database/data-source";
-import CustomerRepository from "../../ports/CustomerRepository";
-import { Customer } from "../../domain/entities/Customer";
-import { CustomerModel } from "../database/models/CustomerModel";
+import { AppDataSource } from "../data-source";
+import ICustomerRepository from "@ports/ICustomerRepository";
+import { Customer } from "@entities/Customer";
+import { CustomerModel } from "../models/CustomerModel";
 
-export default class CustomerDatabaseRepository implements CustomerRepository {
+export default class CustomerDatabaseRepository implements ICustomerRepository {
 
 	customerRepository = AppDataSource.getRepository(CustomerModel);
 

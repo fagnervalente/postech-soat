@@ -3,7 +3,7 @@ import FindByCPFUseCase from "../application/useCase/Customer/FindByCPFUseCase";
 import DeleteUseCase from "../application/useCase/Customer/DeleteUseCase";
 import ListUseCase from "../application/useCase/Customer/ListUseCase";
 import { Customer } from "@entities/Customer";
-import CustomerRepository from "src/ports/CustomerRepository";
+import CustomerRepository from "@ports/ICustomerRepository";
 import IError from "src/domain/error/IError";
 
 export class CustomerController {

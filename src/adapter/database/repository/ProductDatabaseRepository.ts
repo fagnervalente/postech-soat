@@ -1,10 +1,10 @@
-import { AppDataSource } from "../database/data-source";
-import ProductRepository from "../../ports/ProductRepository";
+import { AppDataSource } from "../data-source";
+import IProductRepository from "@ports/IProductRepository";
 import { Product } from "@entities/Product";
 import { ProductCategory } from "@entities/ProductCategory";
-import { ProductModel } from "../database/models/ProductModel";
+import { ProductModel } from "../models/ProductModel";
 
-export default class ProductDatabaseRepository implements ProductRepository {
+export default class ProductDatabaseRepository implements IProductRepository {
 
 	productRepository = AppDataSource.getRepository(ProductModel);
 

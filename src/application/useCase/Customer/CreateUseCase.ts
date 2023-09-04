@@ -1,12 +1,12 @@
-import { Customer } from "../../../domain/models/Customer";
-import CustomerRepository from "../../../ports/CustomerRepository";
+import { Customer } from "@entities/Customer";
+import ICustomerRepository from "@ports/ICustomerRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import FindByCPFUseCase from "./FindByCPFUseCase";
 import schema from "../../validation/createUser";
 
 export default class CreateUseCase extends AbstractUseCase {
 
-	constructor(readonly repository: CustomerRepository) {
+	constructor(readonly repository: ICustomerRepository) {
 		super(repository);
 	}
 

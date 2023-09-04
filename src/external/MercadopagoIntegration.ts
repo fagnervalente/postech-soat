@@ -1,9 +1,9 @@
 import fetch from 'node-fetch';
-import PaymentAPIIntegration from "../ports/PaymentAPI/PaymentAPIIntegration";
+import IPaymentAPIIntegration from "../ports/PaymentAPI/IPaymentAPIIntegration";
 
 const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
 
-export default class MercadopagoIntegration implements PaymentAPIIntegration{
+export default class MercadopagoIntegration implements IPaymentAPIIntegration{
     _paymentId: number;
 
     constructor(webhookNotification: any){

@@ -1,10 +1,10 @@
-import ProductCreateUseCase from "../application/useCase/Product/ProductCreateUseCase";
-import ProductListByCategoryUseCase from "../application/useCase/Product/ProductListByCategoryUseCase";
-import ProductDeleteUseCase from "../application/useCase/Product/ProductDeleteUseCase";
-import ProductFindByIdUseCase from "../application/useCase/Product/ProductFindByIdUseCase";
-import { ProductUpdateBody, ProductUpdateUseCase } from '../application/useCase/Product/ProductUpdateUseCase';
-import ProductRepository from "src/ports/ProductRepository";
-import ProductCategoryRepository from "src/ports/ProductCategoryRepository";
+import ProductCreateUseCase from "@useCases/Product/ProductCreateUseCase";
+import ProductListByCategoryUseCase from "@useCases/Product/ProductListByCategoryUseCase";
+import ProductDeleteUseCase from "@useCases/Product/ProductDeleteUseCase";
+import ProductFindByIdUseCase from "@useCases/Product/ProductFindByIdUseCase";
+import { ProductUpdateBody, ProductUpdateUseCase } from '@useCases/Product/ProductUpdateUseCase';
+import ProductRepository from "@ports/IProductRepository";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
 import { Product } from "@entities/Product";
 import { ProductCategory } from "@entities/ProductCategory";
 
