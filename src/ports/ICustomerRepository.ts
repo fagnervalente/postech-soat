@@ -1,4 +1,4 @@
-import { Customer } from "../domain/models/Customer";
+import { Customer } from "@entities/Customer";
 
 export default interface ICustomerRepository {
 	save(customer: Customer): Promise<Customer>;

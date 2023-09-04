@@ -1,4 +1,4 @@
-import { Order } from "../domain/models/Order";
+import { Order } from "@entities/Order";
 
 export default interface IOrderRepository {
 	save(order: Order): Promise<Order | null>;
