@@ -36,6 +36,7 @@ services:
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_PORT=${DATABASE_PORT}
+      - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
     depends_on:
       database:
         condition: service_healthy
