@@ -1,20 +1,19 @@
 const fetch = require("node-fetch");
 import IPaymentAPIIntegration from "../ports/PaymentAPI/IPaymentAPIIntegration";
 
-const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
+const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
 
 export default class MercadopagoIntegration implements IPaymentAPIIntegration {
-	_paymentId: number;
-
-	constructor(webhookNotification: any) {
-		this._paymentId = Number(webhookNotification.data?.id);
+	extractPaymentId(webhookNotification: any):number{
+		return Number(webhookNotification.data?.id);
 	}
 
-	async getPayment(): Promise<any> {
+	async getPaymentFromWebhookNotification(webhookNotification:any): Promise<any> {
 		try {
-			const url = `https://api.mercadopago.com/v1/payments/${this._paymentId}`;
+			const paymentId = this.extractPaymentId(webhookNotification)
+			const url = `https://api.mercadopago.com/v1/payments/${paymentId}`;
 			const headers = {
-				Authorization: `Bearer ${accessToken}`,
+				Authorization: `Bearer ${accessToken}`
 			};
 
 			const response = await fetch(url, { headers });
@@ -31,6 +30,11 @@ export default class MercadopagoIntegration implements IPaymentAPIIntegration {
 			console.log(`Erro ao consultar pagamento`, error);
 			return null;
 		}
+	}
+
+	async createQrCodePayment(orderId:number, items:Array<any>): Promise<any>{
+		//Mock
+		console.log('Criação do qrCode ainda não foi implementada');
 	}
 
 }

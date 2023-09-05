@@ -1,14 +1,17 @@
 import CreateUseCase from "../../src/application/useCase/Order/CreateUseCase";
 import ListUseCase from "../../src/application/useCase/Order/ListUseCase";
 import UpdateUseCase from "../../src/application/useCase/Order/UpdateUseCase";
+import UpdatePaymentStatusUseCase from "../../src/application/useCase/Order/UpdatePaymentStatusUseCase";
+import GetOrderPaymentStatus from "../../src/application/useCase/Order/GetOrderPaymentStatus";
 import OrderInMemoryRepository from '../utils/repositoryInMemory/OrderInMemoryRepository';
 import ProductInMemoryRepository from '../utils/repositoryInMemory/ProductInMemoryRepository';
 import CustomerInMemoryRepository from '../utils/repositoryInMemory/CustomerInMemoryRepository';
-import { Customer } from "../../src/domain/models/Customer";
-import { Product } from "../../src/domain/models/Product";
-import { Order, OrderPaymentStatus, OrderStatus } from "../../src/domain/models/Order";
-import { ProductCategory } from "../../src/domain/models/ProductCategory";
+import { Customer } from "../../src/domain/entities/Customer";
+import { Product } from "../../src/domain/entities/Product";
+import { Order, OrderPaymentStatus, OrderStatus } from "../../src/domain/entities/Order";
+import { ProductCategory } from "../../src/domain/entities/ProductCategory";
 import ProductCategoryInMemoryRepository from "../utils/repositoryInMemory/ProductCategoryInMemoryRepository";
+import MockedPaymentStatusGateway from "../utils/mockedPaymentGateways/mockedPaymentStatusGateway";
 
 const mockedCustomers: Customer[] = [{ id: 1, name: "Panguji Piranti Lunak", cpf: "12312312312", email: "panguji@gmail.com" }];
 
@@ -75,6 +78,16 @@ describe('Test order use cases', () => {
 		expect(listUseCase.hasErrors()).toBeFalsy();
 	});
 
+	//GetOrderPaymentStatus
+	test('GetOrderPaymentStatus - Success', async () => {
+		const order = await saveMockOrder(mockedOrder);
+		const getStatusUseCase = new GetOrderPaymentStatus(orderRepository);
+		const status = await getStatusUseCase.execute(Number(order?.id));
+
+		expect(status).toEqual(order?.status);
+		expect(getStatusUseCase.hasErrors()).toBeFalsy();
+	});
+
 	//Update
 	test('UpdateUseCase - Success', async () => {
 		const created = await saveMockOrder(mockedOrder);
@@ -118,6 +131,20 @@ describe('Test order use cases', () => {
 
 		expect(orderRepository.orders).toHaveLength(0);
 		expect(updateUseCase.hasErrors()).toBeTruthy();
+	});
+
+	//Update Payment Status
+	test('UpdatePaymentStatusUseCase - Success', async () => {
+		const mockedPaymentStatusGateway = new MockedPaymentStatusGateway(OrderPaymentStatus.APROVADO);
+		const created = await saveMockOrder(mockedOrder);
+
+		const orderId = created?.id;
+
+		const updatePaymentStatus = new UpdatePaymentStatusUseCase(orderRepository);
+		await updatePaymentStatus.execute(Number(orderId), mockedPaymentStatusGateway);
+
+		expect(orderRepository.orders[0].paymentStatus).toBe(OrderPaymentStatus.APROVADO);
+		expect(updatePaymentStatus.hasErrors()).toBeFalsy();
 	});
 });
 
