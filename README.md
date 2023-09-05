@@ -44,6 +44,19 @@ git clone https://github.com/fagnervalente/postech-soat.git
 ```sh
 cd postech-soat
 ```
+- Executar aplicação. Pode ser executada em ambiente de desenvolvimento à partir do Docker, ou a partir do Kubernetes (usa a imagem latest da aplicação no Dockerhub):
+
+#### Executando com K8S e Minikube
+- Executar configurações de objetos kubernets
+```
+kubectl apply -f infra
+```
+- Obter porta para acesso à service LoadBalancer
+```
+minikube service svc-api-webserver get --url
+```
+
+#### Executando com docker
 - Instalar dependências:
 ```sh
 npm install
