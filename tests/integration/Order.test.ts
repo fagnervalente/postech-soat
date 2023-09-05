@@ -81,10 +81,12 @@ describe('Test order use cases', () => {
 	//GetOrderPaymentStatus
 	test('GetOrderPaymentStatus - Success', async () => {
 		const order = await saveMockOrder(mockedOrder);
+		const expectedPaymentStatus = order?.paymentStatus;
+
 		const getStatusUseCase = new GetOrderPaymentStatus(orderRepository);
 		const status = await getStatusUseCase.execute(Number(order?.id));
 
-		expect(status).toEqual(order?.status);
+		expect(status).toBe(expectedPaymentStatus);
 		expect(getStatusUseCase.hasErrors()).toBeFalsy();
 	});
 
@@ -135,15 +137,15 @@ describe('Test order use cases', () => {
 
 	//Update Payment Status
 	test('UpdatePaymentStatusUseCase - Success', async () => {
-		const mockedPaymentStatusGateway = new MockedPaymentStatusGateway(OrderPaymentStatus.APROVADO);
+		const mockedPaymentStatusGateway = new MockedPaymentStatusGateway(OrderPaymentStatus.RECUSADO);
 		const created = await saveMockOrder(mockedOrder);
 
 		const orderId = created?.id;
-
+		
 		const updatePaymentStatus = new UpdatePaymentStatusUseCase(orderRepository);
 		await updatePaymentStatus.execute(Number(orderId), mockedPaymentStatusGateway);
-
-		expect(orderRepository.orders[0].paymentStatus).toBe(OrderPaymentStatus.APROVADO);
+		
+		expect(orderRepository.orders[0].paymentStatus).toBe(OrderPaymentStatus.RECUSADO);
 		expect(updatePaymentStatus.hasErrors()).toBeFalsy();
 	});
 });
