@@ -27,9 +27,15 @@ spec:
             - name: POSTGRES_DB
               value: $(DATABASE_NAME)
             - name: POSTGRES_USER
-              value: $(DATABASE_USER)
+              valueFrom: 
+                secretKeyRef: 
+                  key: DATABASE_USER
+                  name: delivery-secret
             - name: POSTGRES_PASSWORD
-              value: $(DATABASE_PASSWORD)
+              valueFrom: 
+                secretKeyRef: 
+                  key: DATABASE_PASSWORD
+                  name: delivery-secret
           livenessProbe:
             exec:
               command:
