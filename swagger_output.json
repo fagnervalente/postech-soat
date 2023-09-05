@@ -168,6 +168,9 @@
             "schema": {
               "$ref": "#/definitions/ListOrders"
             }
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -194,6 +197,58 @@
             "description": "Pedito criado",
             "schema": {
               "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/order/payment/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint que retorna o status de pagamento de um pedido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do pedido",
+            "schema": {
+              "$ref": "#/definitions/GetPaymentStatus"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint que recebe as notificações de atualização de status de pagamento.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do pagamento do pedido atualizado",
+            "schema": {
+              "$ref": "#/definitions/HandlePaymentWebhook"
             }
           },
           "400": {
@@ -242,6 +297,9 @@
             "schema": {
               "$ref": "#/definitions/Category"
             }
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -348,7 +406,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Produto encontrados",
+            "description": "Produtos encontrados",
             "schema": {
               "$ref": "#/definitions/ListProduct"
             }
