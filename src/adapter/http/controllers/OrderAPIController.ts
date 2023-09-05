@@ -5,6 +5,7 @@ import ProductDatabaseRepository from "@database/repository/ProductDatabaseRepos
 import PaymentStatusGatewayWebhookMercadopago from "../../payment/PaymentStatusGatewayWebhookMercadopago";
 import MercadopagoIntegration from "../../../external/MercadopagoIntegration";
 import OrderController from "@controllers/OrderController";
+import { OrderStatus } from "@entities/Order";
 
 const orderRepository = new OrderDatabaseRepository();
 const customerRepository = new CustomerDatabaseRepository();
@@ -24,9 +25,9 @@ export default class OrderAPIController {
 
 		OrderController.checkout(products, cpf, orderRepository, customerRepository, productRepository)
 			.then((result: any) => {
-				/* #swagger.responses[201] = { 
+				/* #swagger.responses[201] = {
 						schema: { $ref: "#/definitions/OrderCreated" },
-						description: 'Pedito criado' 
+						description: 'Pedito criado'
 				} */
 				return res.status(201).json(result);
 			})
@@ -41,9 +42,9 @@ export default class OrderAPIController {
 
 		OrderController.list(orderRepository)
 			.then((result: any) => {
-				/* #swagger.responses[200] = { 
+				/* #swagger.responses[200] = {
 						schema: { $ref: "#/definitions/ListOrders" },
-						description: 'Pedidos encontrados' 
+						description: 'Pedidos encontrados'
 				} */
 				return res.status(200).json(result);
 			})
@@ -63,9 +64,9 @@ export default class OrderAPIController {
 
 		OrderController.handlePaymentWebhook(orderId, paymentStatusGateway, orderRepository)
 			.then(() => {
-				/* #swagger.responses[200] = { 
+				/* #swagger.responses[200] = {
 						schema: { $ref: "#/definitions/HandlePaymentWebhook" },
-						description: 'Status do pagamento do pedido atualizado' 
+						description: 'Status do pagamento do pedido atualizado'
 				} */
 				return res.status(200).json();
 			})
@@ -81,14 +82,33 @@ export default class OrderAPIController {
 
 		OrderController.getPaymentStatus(orderId, orderRepository)
 			.then((result: any) => {
-				/* #swagger.responses[200] = { 
+				/* #swagger.responses[200] = {
 						schema: { $ref: "#/definitions/GetPaymentStatus" },
-						description: 'Status do pedido' 
+						description: 'Status do pedido'
 				} */
 				return res.status(200).json(result);
 			})
 			.catch((errors: any) => {
 				return res.status(400).json(errors);
+			});
+	}
+
+	async updateStatus(req: Request, res: Response) {
+		// #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint para atualizar status de um pedido.'
+		const orderId = Number(req.params.id);
+		const orderStatus = req.body.status as OrderStatus;
+
+		OrderController.updateStatus(orderId, orderStatus, orderRepository)
+			.then((result: any)=>{
+					/* #swagger.responses[200] = {
+							schema: { $ref: "#/definitions/updateStatus" },
+							description: 'Status do pedido'
+					} */
+					return res.status(200).json(result);
+			})
+			.catch((errors: any)=>{
+					return res.status(400).json(errors);
 			});
 	}
 }

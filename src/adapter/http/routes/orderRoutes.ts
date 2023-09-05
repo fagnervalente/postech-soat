@@ -1,5 +1,4 @@
 import { Router } from "express";
-import OrderController from '../../../controllers/OrderController';
 import HttpUtils from "../HttpUtils";
 import OrderAPIController from "../controllers/OrderAPIController";
 
@@ -10,5 +9,6 @@ orderRoutes.post('/order/checkout', new OrderAPIController().checkout);
 orderRoutes.get('/order/payment/:id', new OrderAPIController().getPaymentStatus);
 
 orderRoutes.post('/order/payment/:id', new OrderAPIController().handlePaymentWebhook);
+orderRoutes.put('/order/status/:id', new OrderAPIController().updateStatus);
 
 export default orderRoutes;

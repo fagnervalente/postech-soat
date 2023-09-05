@@ -1,4 +1,4 @@
-import { Order } from "@entities/Order";
+import { Order, OrderStatus } from "@entities/Order";
 import CreateUseCase from "../application/useCase/Order/CreateUseCase";
 import ListUseCase from "../application/useCase/Order/ListUseCase";
 import UpdatePaymentStatusUseCase from "../application/useCase/Order/UpdatePaymentStatusUseCase";
@@ -8,6 +8,7 @@ import { Product } from "@entities/Product";
 import ICustomerRepository from "../ports/ICustomerRepository";
 import IProductRepository from "../ports/IProductRepository";
 import GetOrderPaymentStatus from "../application/useCase/Order/GetOrderPaymentStatus";
+import UpdateStatusUseCase from "@useCases/Order/UpdateStatusUseCase";
 
 
 
@@ -45,5 +46,15 @@ export default class OrderController {
 		if (getPaymentStatus.hasErrors()) Promise.reject(getPaymentStatus.getErrors());
 
 		return result;
+	}
+
+	static async updateStatus(orderId: number, orderStatus: OrderStatus, orderRepository: IOrderRepository) {
+		const updateStatusUseCase = new UpdateStatusUseCase(orderRepository);
+
+		await updateStatusUseCase.execute(orderId, orderStatus);
+
+		if (updateStatusUseCase.hasErrors()) {
+			throw updateStatusUseCase.getErrors();
+		}
 	}
 }
