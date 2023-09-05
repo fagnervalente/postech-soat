@@ -1,7 +1,6 @@
-import { ProductCategory } from "../../../src/domain/models/ProductCategory";
-import ProductRepository from '../../../src/ports/ProductRepository';
-import { Product } from "../../../src/domain/models/Product";
-
+import { ProductCategoryModel as ProductCategory } from "../../../src/adapter/database/models/ProductCategoryModel";
+import ProductRepository from '../../../src/ports/IProductRepository';
+import { ProductModel as Product } from "../../../src/adapter/database/models/ProductModel";
 export default class ProductInMemoryRepository implements ProductRepository {
 
 	public products: Product[] = [];

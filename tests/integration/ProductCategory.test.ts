@@ -1,5 +1,5 @@
-import { Product } from '../../src/domain/models/Product';
-import { ProductCategory } from "../../src/domain/models/ProductCategory";
+import { ProductModel as Product } from "../../src/adapter/database/models/ProductModel";
+import { ProductCategoryModel as ProductCategory } from "../../src/adapter/database/models/ProductCategoryModel";
 import ProductCategoryInMemoryRepository from '../utils/repositoryInMemory/ProductCategoryInMemoryRepository';
 import ProductCategoryCreateUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryCreateUseCase";
 import ProductCategoryFindByIdUseCase from "../../src/application/useCase/ProductCategory/ProductCategoryFindByIdUseCase";

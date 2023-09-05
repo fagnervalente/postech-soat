@@ -1,5 +1,5 @@
-import CustomerRepository from "../../../src/ports/CustomerRepository";
-import { Customer } from "../../../src/domain/models/Customer";
+import CustomerRepository from "../../../src/ports/ICustomerRepository";
+import { CustomerModel as Customer } from "../../../src/adapter/database/models/CustomerModel";
 
 export default class CustomerInMemoryRepository implements CustomerRepository {
 	public customers: Customer[] = [];

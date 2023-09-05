@@ -6,10 +6,10 @@ import GetOrderPaymentStatus from "../../src/application/useCase/Order/GetOrderP
 import OrderInMemoryRepository from '../utils/repositoryInMemory/OrderInMemoryRepository';
 import ProductInMemoryRepository from '../utils/repositoryInMemory/ProductInMemoryRepository';
 import CustomerInMemoryRepository from '../utils/repositoryInMemory/CustomerInMemoryRepository';
-import { Customer } from "../../src/domain/entities/Customer";
-import { Product } from "../../src/domain/entities/Product";
-import { Order, OrderPaymentStatus, OrderStatus } from "../../src/domain/entities/Order";
-import { ProductCategory } from "../../src/domain/entities/ProductCategory";
+import { CustomerModel as Customer } from "../../src/adapter/database/models/CustomerModel";
+import { ProductModel as Product } from "../../src/adapter/database/models/ProductModel";
+import { OrderModel as Order, OrderPaymentStatus, OrderStatus } from "../../src/adapter/database/models/OrderModel";
+import { ProductCategoryModel as ProductCategory } from "../../src/adapter/database/models/ProductCategoryModel";
 import ProductCategoryInMemoryRepository from "../utils/repositoryInMemory/ProductCategoryInMemoryRepository";
 import MockedPaymentStatusGateway from "../utils/mockedPaymentGateways/mockedPaymentStatusGateway";
 

@@ -1,5 +1,5 @@
-import OrderRepository from "../../../src/ports/OrderRepository";
-import { Order } from "../../../src/domain/models/Order";
+import OrderRepository from "../../../src/ports/IOrderRepository";
+import { OrderModel as Order } from "../../../src/adapter/database/models/OrderModel";
 
 export default class OrderInMemoryRepository implements OrderRepository {
 

@@ -1,4 +1,4 @@
-import { Customer } from '../../src/domain/models/Customer';
+import { CustomerModel as Customer } from '../../src/adapter/database/models/CustomerModel';
 import CustomerInMemoryRepository from '../utils/repositoryInMemory/CustomerInMemoryRepository';
 import ListUseCase from '../../src/application/useCase/Customer/ListUseCase';
 import CreateUseCase from '../../src/application/useCase/Customer/CreateUseCase';

@@ -1,6 +1,5 @@
-import ProductCategoryRespository from "../../../src/ports/ProductCategoryRepository";
-import { ProductCategory } from "../../../src/domain/models/ProductCategory";
-
+import ProductCategoryRespository from "../../../src/ports/IProductCategoryRepository";
+import { ProductCategoryModel as ProductCategory } from "../../../src/adapter/database/models/ProductCategoryModel";
 export default class ProductCategoryInMemoryRepository implements ProductCategoryRespository {
 	public categories: ProductCategory[] = [];
 
