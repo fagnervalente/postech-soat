@@ -257,6 +257,42 @@
         }
       }
     },
+    "/order/status/{id}": {
+      "put": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Endpoint para atualizar status de um pedido.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status do pedido"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/category": {
       "get": {
         "tags": [

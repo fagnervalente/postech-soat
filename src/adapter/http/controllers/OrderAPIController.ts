@@ -100,15 +100,14 @@ export default class OrderAPIController {
 		const orderStatus = req.body.status as OrderStatus;
 
 		OrderController.updateStatus(orderId, orderStatus, orderRepository)
-			.then((result: any)=>{
-					/* #swagger.responses[200] = {
-							schema: { $ref: "#/definitions/updateStatus" },
-							description: 'Status do pedido'
-					} */
-					return res.status(200).json(result);
+			.then((result: any) => {
+				/* #swagger.responses[200] = {
+						description: 'Status do pedido'
+				} */
+				return res.status(200).json(result);
 			})
-			.catch((errors: any)=>{
-					return res.status(400).json(errors);
+			.catch((errors: any) => {
+				return res.status(400).json(errors);
 			});
 	}
 }
