@@ -1,3 +1,3 @@
 export default interface IPaymentAPIIntegration{
-    getPayment(): Promise<any>;
+    getPaymentFromWebhookNotification(webhookNotification:any): Promise<any>;
 }

@@ -16,15 +16,17 @@ enum StatusMercadopago {
     CHARGED_BACK = 'charged_back',
   }
 
-export default class PaymentStatusGatewayMercadopago implements PaymentStatusGateway{
+export default class PaymentStatusGatewayWebhookMercadopago implements PaymentStatusGateway{
     private _paymentAPIIntegration: PaymentAPIIntegration;
+    private _webhookNotification: any;
 
-    constructor(paymentAPIIntegration: PaymentAPIIntegration){
+    constructor(paymentAPIIntegration: PaymentAPIIntegration, webhookNotification: any){
         this._paymentAPIIntegration = paymentAPIIntegration;
+        this._webhookNotification = webhookNotification;
     }
 
     async getStatus(): Promise<OrderPaymentStatus | null> {
-        const paymentData = await this._paymentAPIIntegration.getPayment();
+        const paymentData = await this._paymentAPIIntegration.getPaymentFromWebhookNotification(this._webhookNotification);
         switch(paymentData.status){
             case StatusMercadopago.PENDING:
             case StatusMercadopago.AUTHORIZED:

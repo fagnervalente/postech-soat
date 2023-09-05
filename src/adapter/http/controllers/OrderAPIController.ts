@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import OrderDatabaseRepository from "@database/repository/OrderDatabaseRepository";
 import CustomerDatabaseRepository from "@database/repository/CustomerDatabaseRepository";
 import ProductDatabaseRepository from "@database/repository/ProductDatabaseRepository";
-import PaymentStatusGatewayMercadopago from "../../payment/PaymentStatusGatewayMercadopago";
+import PaymentStatusGatewayWebhookMercadopago from "../../payment/PaymentStatusGatewayWebhookMercadopago";
 import MercadopagoIntegration from "../../../external/MercadopagoIntegration";
 import OrderController from "@controllers/OrderController";
 
@@ -53,14 +53,20 @@ export default class OrderAPIController{
 	}
 
     async handlePaymentWebhook(req: Request, res: Response){
+        // #swagger.tags = ['Order']
+		// #swagger.description = 'Endpoint que recebe as notificações de atualização de status de pagamento.'
 		const orderId = Number(req.params.id);
 		const webhookNotification = req.body;
 
-        const paymentAPIIntegration = new MercadopagoIntegration(webhookNotification);
-        const paymentStatusGateway = new PaymentStatusGatewayMercadopago(paymentAPIIntegration);
+        const paymentAPIIntegration = new MercadopagoIntegration();
+        const paymentStatusGateway = new PaymentStatusGatewayWebhookMercadopago(paymentAPIIntegration, webhookNotification);
         
         OrderController.handlePaymentWebhook(orderId, paymentStatusGateway, orderRepository)
             .then(()=>{
+                /* #swagger.responses[200] = { 
+                    schema: { $ref: "#/definitions/HandlePaymentWebhook" },
+                    description: 'Status do pagamento do pedido atualizado' 
+                } */
                 return res.status(200).json();
             })
             .catch((errors: any)=>{
