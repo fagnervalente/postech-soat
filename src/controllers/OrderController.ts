@@ -18,7 +18,7 @@ export default class OrderController {
 
 		if (createUseCase.hasErrors()) Promise.reject(createUseCase.getErrors());
 
-		return result;
+		return { Pedido: result?.id };
 	}
 
 	static async list(orderRepository: IOrderRepository) {
