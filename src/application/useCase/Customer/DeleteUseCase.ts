@@ -1,9 +1,9 @@
-import CustomerRepository from "../../../ports/CustomerRepository";
+import ICustomerRepository from "@ports/ICustomerRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
 export default class DeleteUseCase extends AbstractUseCase {
 
-	constructor(readonly repository: CustomerRepository) {
+	constructor(readonly repository: ICustomerRepository) {
 		super(repository);
 	}
 

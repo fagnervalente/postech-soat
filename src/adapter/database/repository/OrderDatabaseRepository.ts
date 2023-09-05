@@ -1,11 +1,12 @@
-import { AppDataSource } from "../../data-source";
-import OrderRepository from "../../ports/OrderRepository";
-import { Order, OrderStatus } from "../../domain/models/Order";
+import { AppDataSource } from "../data-source";
+import IOrderRepository from "@ports/IOrderRepository";
+import { OrderModel, OrderStatus } from "@database/models/OrderModel";
 import { Not } from "typeorm";
+import { Order } from "@entities/Order";
 
-export default class OrderDatabaseRepository implements OrderRepository {
+export default class OrderDatabaseRepository implements IOrderRepository {
 
-	orderRepository = AppDataSource.getRepository(Order);
+	orderRepository = AppDataSource.getRepository(OrderModel);
 
 	async save(order: Order): Promise<Order> {
 		const newOrder = this.orderRepository.create(order);

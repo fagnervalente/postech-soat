@@ -1,4 +1,4 @@
-import { Product } from "../models/Product";
+import { Product } from "@entities/Product";
 
 export default class Calculator {
 	public static calculateOrderTotalPrice(products: Product[] | undefined): number {

@@ -1,11 +1,11 @@
-import { Product } from "../../../domain/models/Product";
-import ProductRepository from "../../../ports/ProductRepository";
+import ProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/updateProduct";
 import ProductCategoryFindByIdUseCase from "../ProductCategory/ProductCategoryFindByIdUseCase";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
 import ProductFindByIdUseCase from "./ProductFindByIdUseCase";
+import { Product } from "@entities/Product";
+import { ProductCategory } from "@entities/ProductCategory";
 
 export type ProductUpdateBody = {
 	id?: number;

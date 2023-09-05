@@ -1,19 +1,19 @@
-import { Customer } from "../../../domain/models/Customer";
-import { Order, OrderPaymentStatus } from "../../../domain/models/Order";
+import { Customer } from "@entities/Customer";
+import { Order, OrderPaymentStatus } from "@entities/Order";
 import Calculator from "../../../domain/rules/Calculator";
-import OrderRepository from "../../../ports/OrderRepository";
-import ProductRepository from "../../../ports/ProductRepository";
-import CustomerRepository from "../../../ports/CustomerRepository";
+import IOrderRepository from "@ports/IOrderRepository";
+import IProductRepository from "@ports/IProductRepository";
+import ICustomerRepository from "@ports/ICustomerRepository";
 import CustomerFindByCPFUseCase from '../Customer/FindByCPFUseCase';
 import ProductFindByIdUseCase from '../Product/ProductFindByIdUseCase';
 import AbstractUseCase from "../AbstractUseCase";
-import { Product } from "../../../domain/models/Product";
+import { Product } from "@entities/Product";
 
 export default class CreateUseCase extends AbstractUseCase {
-	private customerRepository: CustomerRepository;
-	private productRepository: ProductRepository;
+	private customerRepository: ICustomerRepository;
+	private productRepository: IProductRepository;
 
-	constructor(readonly repository: OrderRepository, customerRepository: CustomerRepository, productRepository: ProductRepository) {
+	constructor(readonly repository: IOrderRepository, customerRepository: ICustomerRepository, productRepository: IProductRepository) {
 		super(repository);
 		this.customerRepository = customerRepository;
 		this.productRepository = productRepository;

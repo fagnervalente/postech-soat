@@ -1,12 +1,12 @@
-import { Order } from "../../../domain/models/Order";
+import { Order } from "@entities/Order";
 import Calculator from "../../../domain/rules/Calculator";
-import OrderRepository from "../../../ports/OrderRepository";
+import IOrderRepository from "@ports/IOrderRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import schema from "../../validation/updateOrder";
 
 export default class UpdateUseCase extends AbstractUseCase {
 
-	constructor(readonly orderRepository: OrderRepository) {
+	constructor(readonly orderRepository: IOrderRepository) {
 		super(orderRepository);
 	}
 

@@ -1,10 +1,10 @@
-import { Product } from "../../../domain/models/Product";
-import ProductRepository from "../../../ports/ProductRepository";
+import { Product } from "@entities/Product";
+import IProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
 export default class ProductFindByIdUseCase extends AbstractUseCase {
 
-	constructor(readonly productRepository: ProductRepository) {
+	constructor(readonly productRepository: IProductRepository) {
 		super(productRepository);
 	}
 

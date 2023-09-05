@@ -1,9 +1,9 @@
-import ProductRepository from "../../../ports/ProductRepository";
+import IProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
 export default class ProductDeleteUseCase extends AbstractUseCase {
 
-	constructor(readonly productRepository: ProductRepository) {
+	constructor(readonly productRepository: IProductRepository) {
 		super(productRepository);
 	}
 

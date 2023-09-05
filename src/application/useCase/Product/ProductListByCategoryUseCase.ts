@@ -1,14 +1,14 @@
-import { Product } from "../../../domain/models/Product";
-import { ProductCategory } from "../../../domain/models/ProductCategory";
-import ProductCategoryRepository from "../../../ports/ProductCategoryRepository";
-import ProductRepository from "../../../ports/ProductRepository";
+import { Product } from "@entities/Product";
+import ProductCategoryRepository from "@ports/IProductCategoryRepository";
+import IProductRepository from "@ports/IProductRepository";
 import AbstractUseCase from "../AbstractUseCase";
 import CategoryFindByIdUseCase from '../ProductCategory/ProductCategoryFindByIdUseCase';
+import { ProductCategory } from "@entities/ProductCategory";
 
 export default class ProductListByCategoryUseCase extends AbstractUseCase {
 	private productCategoryRepository: ProductCategoryRepository;
 
-	constructor(readonly repository: ProductRepository, productCategoryRepository: ProductCategoryRepository) {
+	constructor(readonly repository: IProductRepository, productCategoryRepository: ProductCategoryRepository) {
 		super(repository);
 		this.productCategoryRepository = productCategoryRepository;
 	}

@@ -1,10 +1,10 @@
-import { Order } from "../../../domain/models/Order";
-import OrderRepository from "../../../ports/OrderRepository";
+import { Order } from "@entities/Order";
+import IOrderRepository from "@ports/IOrderRepository";
 import AbstractUseCase from "../AbstractUseCase";
 
 export default class ListUseCase extends AbstractUseCase {
 
-	constructor(readonly orderRepository: OrderRepository) {
+	constructor(readonly orderRepository: IOrderRepository) {
 		super(orderRepository);
 	}
 
