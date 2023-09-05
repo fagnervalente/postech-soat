@@ -93,6 +93,9 @@ const doc = {
 				name: "Lanche",
 			},
 		},
+		OrderCreated: {
+			Pedido: 1
+		},
 		Order: {
 			id: 1,
 			status: {
