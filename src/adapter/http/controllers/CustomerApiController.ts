@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import CustomerDatabaseRepository from "@database/repository/CustomerDatabaseRepository";
 import { CustomerController } from "@controllers/CustomerController";
+import AuthLambdaIntegration from "src/adapter/auth/AuthLambdaIntegration";
+import { Customer } from "@entities/Customer";
 
 const customerRepository = new CustomerDatabaseRepository();
 const customerController = new CustomerController(customerRepository);
@@ -20,6 +22,9 @@ export class CustomerApiController {
 
 		try {
 			const created = await customerController.create(name, cpf, email);
+
+			const authIntegration = new AuthLambdaIntegration();
+			authIntegration.putClient(created as Customer);
 
 			/* #swagger.responses[201] = {
 				schema: { $ref: "#/definitions/Customer" },

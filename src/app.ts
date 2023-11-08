@@ -5,6 +5,7 @@ import HttpAdapter from './adapter/http/HttpAdapter';
 import { AppDataSource } from "./adapter/database/data-source";
 
 
+
 export default class App {
 	private server: core.Express = express();
 

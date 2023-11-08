@@ -17,7 +17,7 @@ export default class OrderController {
 		const createUseCase = new CreateUseCase(orderRepository, customerRepository, productRepository);
 		const result = await createUseCase.execute({ products, customer: { cpf: cpf } } as Order);
 
-		if (createUseCase.hasErrors()) Promise.reject(createUseCase.getErrors());
+		if (createUseCase.hasErrors()) throw createUseCase.getErrors();
 
 		return { Pedido: result?.id };
 	}
@@ -26,7 +26,7 @@ export default class OrderController {
 		const listOrder = new ListUseCase(orderRepository);
 		const result = await listOrder.execute();
 
-		if (listOrder.hasErrors()) Promise.reject(listOrder.getErrors());
+		if (listOrder.hasErrors()) throw listOrder.getErrors();
 
 		return result;
 	}
@@ -36,14 +36,14 @@ export default class OrderController {
 
 		await updatePaymentStatus.execute(orderId, paymentStatusGateway);
 
-		if (updatePaymentStatus.hasErrors()) Promise.reject(updatePaymentStatus.getErrors());
+		if (updatePaymentStatus.hasErrors()) throw updatePaymentStatus.getErrors();
 	}
 
 	static async getPaymentStatus(orderId: number, orderRepository: IOrderRepository) {
 		const getPaymentStatus = new GetOrderPaymentStatus(orderRepository);
 		const result = await getPaymentStatus.execute(orderId);
 
-		if (getPaymentStatus.hasErrors()) Promise.reject(getPaymentStatus.getErrors());
+		if (getPaymentStatus.hasErrors()) throw getPaymentStatus.getErrors();
 
 		return result;
 	}
