@@ -10,7 +10,7 @@ export default class AuthLambdaIntegration{
     async putClient(customer: Customer): Promise<any> {
         try {
             const customerInfo = AuthLambdaIntegration.mapCustomerToAuthInfo(customer);
-			const url = process.env.AUTH_PUT_CLIENT_ENDPOINT;
+			const url = process.env.AUTH_PUT_CLIENT;
 			
 			const response = await fetch(url, {method: 'POST', body: JSON.stringify(customerInfo)});
 
