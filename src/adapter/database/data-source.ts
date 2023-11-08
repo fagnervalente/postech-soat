@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { DataSource } from "typeorm";
 
 export const AppDataSource = new DataSource({
+	ssl: true,
 	type: 'postgres',
 	host: process.env.DATABASE_HOST,
 	port: process.env.DATABASE_PORT as number | undefined,
