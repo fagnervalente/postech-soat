@@ -4,6 +4,9 @@ import { DataSource } from "typeorm";
 
 export const AppDataSource = new DataSource({
 	type: 'postgres',
+	ssl: {
+		rejectUnauthorized: false
+	},
 	host: process.env.DATABASE_HOST,
 	port: process.env.DATABASE_PORT as number | undefined,
 	username: process.env.DATABASE_USER,
