@@ -38,6 +38,7 @@ services:
       - DATABASE_PORT=${DATABASE_PORT}
       - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
       - ORDER_SERVICE_ENDPOINT=${ORDER_SERVICE_ENDPOINT}
+      - RUN_ON=${RUN_ON}
     depends_on:
       database:
         condition: service_healthy
