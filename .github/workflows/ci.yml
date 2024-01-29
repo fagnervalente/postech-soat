@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'order_integration'
   pull_request:
 
 jobs:
