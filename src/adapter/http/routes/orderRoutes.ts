@@ -5,11 +5,10 @@ import auth from "../../auth/authMiddleware";
 import fetch from "node-fetch";
 
 const orderRoutes = HttpUtils.asyncRouterHandler(Router());
-const port = process.env.SERVER_PORT;
 const orderEndpoint = process.env.ORDER_SERVICE_ENDPOINT as string;
 
 orderRoutes.get('/order', async () => {
-	const response = await fetch(`${orderEndpoint}:${port}/order`, {
+	const response = await fetch(`${orderEndpoint}/order`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ orderRoutes.get('/order', async () => {
 });
 
 orderRoutes.post('/order/checkout', auth, async (req, _) => {
-	const response = await fetch(`${orderEndpoint}:${port}/order/checkout`, {
+	const response = await fetch(`${orderEndpoint}/order/checkout`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -31,7 +30,7 @@ orderRoutes.post('/order/checkout', auth, async (req, _) => {
 
 orderRoutes.get('/order/payment/:id', async (req, _) => {
 	const id = Number(req.params.id)
-	const response = await fetch(`${orderEndpoint}:${port}/order/payment/${id}`, {
+	const response = await fetch(`${orderEndpoint}/order/payment/${id}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -42,7 +41,7 @@ orderRoutes.get('/order/payment/:id', async (req, _) => {
 
 orderRoutes.put('/order/status/:id', async (req, _) => {
 	const id = Number(req.params.id)
-	const response = await fetch(`${orderEndpoint}:${port}/order/status/${id}`, {
+	const response = await fetch(`${orderEndpoint}/order/status/${id}`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
