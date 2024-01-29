@@ -3,11 +3,16 @@ FROM node:18-alpine as base
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY yarn.lock ./
 
-RUN npm install
+RUN npm install -g yarn --force
+
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
-CMD npm run dev
+EXPOSE ${SERVER_PORT}
+
+CMD yarn dev
