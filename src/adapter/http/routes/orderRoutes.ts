@@ -11,7 +11,7 @@ orderRoutes.get('/order', async () => {
 	const response = await fetch(`${orderEndpoint}`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
+			Accept: 'application/json',
 		},
 	});
 	return response;
@@ -22,6 +22,7 @@ orderRoutes.post('/order/checkout', auth, async (req, _) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			Accept: 'application/json',
 		},
 		body: JSON.stringify(req.body)
 	});
@@ -33,7 +34,7 @@ orderRoutes.get('/order/payment/:id', async (req, _) => {
 	const response = await fetch(`${orderEndpoint}/payment/${id}`, {
 		method: 'GET',
 		headers: {
-			'Content-Type': 'application/json',
+			Accept: 'application/json',
 		},
 	});
 	return response;
@@ -45,6 +46,7 @@ orderRoutes.put('/order/status/:id', async (req, _) => {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
+			Accept: 'application/json',
 		},
 		body: JSON.stringify(req.body)
 	});
