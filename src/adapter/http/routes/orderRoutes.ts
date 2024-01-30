@@ -1,8 +1,6 @@
 import { Router } from "express";
 import HttpUtils from "../HttpUtils";
-import OrderAPIController from "../controllers/OrderAPIController";
 import auth from "../../auth/authMiddleware";
-import fetch from "node-fetch";
 import got from "got";
 
 const orderRoutes = HttpUtils.asyncRouterHandler(Router());
@@ -10,44 +8,22 @@ const orderEndpoint = process.env.ORDER_SERVICE_ENDPOINT as string;
 
 orderRoutes.get('/order', async (_, res) => {
 	const response = await got.get(orderEndpoint);
-	console.log(response);
-	return res.status(response.statusCode).json(response.body);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-orderRoutes.post('/order/checkout', auth, async (req, _) => {
-	const response = await fetch(`${orderEndpoint}/checkout`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		},
-		body: JSON.stringify(req.body)
-	});
-	return response;
+orderRoutes.post('/order/checkout', auth, async (req, res) => {
+	const response = await got.post(`${orderEndpoint}/checkout`, { json: req.body });
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-orderRoutes.get('/order/payment/:id', async (req, _) => {
-	const id = Number(req.params.id)
-	const response = await fetch(`${orderEndpoint}/payment/${id}`, {
-		method: 'GET',
-		headers: {
-			Accept: 'application/json',
-		},
-	});
-	return response;
+orderRoutes.get('/order/payment/:id', async (req, res) => {
+	const response = await got.get(`${orderEndpoint}/payment/${req.params.id}`);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-orderRoutes.put('/order/status/:id', async (req, _) => {
-	const id = Number(req.params.id)
-	const response = await fetch(`${orderEndpoint}/status/${id}`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		},
-		body: JSON.stringify(req.body)
-	});
-	return response;
+orderRoutes.put('/order/status/:id', async (req, res) => {
+	const response = await got.put(`${orderEndpoint}/status/${req.params.id}`, { json: req.body });
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
 export default orderRoutes;
