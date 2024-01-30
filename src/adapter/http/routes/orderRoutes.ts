@@ -10,6 +10,7 @@ const orderEndpoint = process.env.ORDER_SERVICE_ENDPOINT as string;
 
 orderRoutes.get('/order', async () => {
 	const response = await got.get(orderEndpoint);
+	console.log(response);
 	return response;
 });
 
