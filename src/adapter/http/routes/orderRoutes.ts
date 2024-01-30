@@ -8,10 +8,10 @@ import got from "got";
 const orderRoutes = HttpUtils.asyncRouterHandler(Router());
 const orderEndpoint = process.env.ORDER_SERVICE_ENDPOINT as string;
 
-orderRoutes.get('/order', async () => {
+orderRoutes.get('/order', async (_, res) => {
 	const response = await got.get(orderEndpoint);
 	console.log(response);
-	return response;
+	return res.status(response.statusCode).json(response.body);
 });
 
 orderRoutes.post('/order/checkout', auth, async (req, _) => {
