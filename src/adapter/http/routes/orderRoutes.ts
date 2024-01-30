@@ -3,17 +3,13 @@ import HttpUtils from "../HttpUtils";
 import OrderAPIController from "../controllers/OrderAPIController";
 import auth from "../../auth/authMiddleware";
 import fetch from "node-fetch";
+import got from "got";
 
 const orderRoutes = HttpUtils.asyncRouterHandler(Router());
 const orderEndpoint = process.env.ORDER_SERVICE_ENDPOINT as string;
 
 orderRoutes.get('/order', async () => {
-	const response = await fetch(`${orderEndpoint}`, {
-		method: 'GET',
-		headers: {
-			Accept: 'application/json',
-		},
-	});
+	const response = await got.get(orderEndpoint);
 	return response;
 });
 
