@@ -2,7 +2,6 @@ import "reflect-metadata";
 import express from 'express';
 import * as core from 'express-serve-static-core';
 import HttpAdapter from './adapter/http/HttpAdapter';
-import { AppDataSource } from "./adapter/database/data-source";
 
 
 
@@ -27,6 +26,5 @@ export default class App {
 	}
 
 	private async initDrivenAdapters(): Promise<void> {
-		await AppDataSource.initialize();
 	}
 }
