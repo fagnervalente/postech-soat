@@ -26,4 +26,9 @@ orderRoutes.put('/order/status/:id', async (req, res) => {
 	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
+orderRoutes.put('/order/paymentStatus/:id', async (req, res) => {
+	const response = await got.put(`${orderEndpoint}/paymentStatus/${req.params.id}`, { json: req.body });
+	return res.status(response.statusCode).json(JSON.parse(response.body));
+});
+
 export default orderRoutes;
