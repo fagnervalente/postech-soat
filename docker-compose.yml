@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   database:
@@ -37,9 +37,12 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_PORT=${DATABASE_PORT}
       - MERCADOPAGO_ACCESS_TOKEN=${MERCADOPAGO_ACCESS_TOKEN}
+      - ORDER_SERVICE_ENDPOINT=${ORDER_SERVICE_ENDPOINT}
+      - PRODUCT_SERVICE_ENDPOINT=${PRODUCT_SERVICE_ENDPOINT}
+      - CUSTOMER_SERVICE_ENDPOINT=${CUSTOMER_SERVICE_ENDPOINT}
     depends_on:
       database:
         condition: service_healthy
 
 volumes:
-    postgres-data:
+  postgres-data:
