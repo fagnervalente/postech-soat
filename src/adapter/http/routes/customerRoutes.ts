@@ -1,40 +1,33 @@
+import { AuthLambdaIntegration, Customer } from "src/adapter/auth/AuthLambdaIntegration";
 import { Router } from "express";
 import HttpUtils from '../HttpUtils';
-import fetch from 'node-fetch';
+import got from "got";
 
 const customerRoutes = HttpUtils.asyncRouterHandler(Router());
-const userEndpoint = process.env.USER_SERVICE_ENDPOINT as string;
-const requestInit = {
-    method: 'GET',
-    headers: {'Content-Type':'application/json'}
-};
+const customerEndpoint = process.env.CUSTOMER_SERVICE_ENDPOINT as string;
 
-customerRoutes.get('/customer', async ()=>{
-    return await fetch(`${userEndpoint}/customer`, requestInit);
+customerRoutes.get('/customer', async (_, res) => {
+	const response = await got.get(customerEndpoint);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-customerRoutes.get('/customer/:cpf', async (req, _)=>{
-    const {cpf} = req.params;
-    return await fetch(`${userEndpoint}/customer/${cpf}`, {
-        ...requestInit,
-        body: JSON.stringify(req.body)
-    });
+customerRoutes.get('/customer/:cpf', async (req, res) => {
+	const { cpf } = req.params;
+	const response = await got.get(`${customerEndpoint}/${cpf}`);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-customerRoutes.post('/customer', async (req, _)=>{
-    return await fetch(`${userEndpoint}/customer`, {
-        ...requestInit,
-        method: 'POST',
-        body: JSON.stringify(req.body)
-    });
+customerRoutes.post('/customer', async (req, res) => {
+	const response = await got.post(customerEndpoint, { json: req.body });
+	const authIntegration = new AuthLambdaIntegration();
+	await authIntegration.putClient(JSON.parse(response.body) as Customer);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
-customerRoutes.delete('/customer/:id', async (req, _)=>{
-    const {id} = req.params;
-    return await fetch(`${userEndpoint}/customer/${id}`, {
-        ...requestInit,
-        method: 'DELETE'
-    });
+customerRoutes.delete('/customer/:id', async (req, res) => {
+	const { id } = req.params;
+	const response = await got.delete(`${customerEndpoint}/${id}`);
+	return res.status(response.statusCode).json(JSON.parse(response.body));
 });
 
 export default customerRoutes;

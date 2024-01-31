@@ -1,47 +1,38 @@
 import { Router } from "express";
 import HttpUtils from "../HttpUtils";
-import fetch from "node-fetch";
+import got from "got";
 
 const productRouter = HttpUtils.asyncRouterHandler(Router());
 const productEndpoint = process.env.PRODUCT_SERVICE_ENDPOINT as string;
-const requestInit = {
-    method: 'GET',
-    headers: {'Content-Type':'application/json'}
-};
 
-productRouter.get('/product/category/:categoryId', async (req, _)=>{
-    const {categoryId} = req.params;
-    return await fetch(`${productEndpoint}/product/category/${categoryId}`, requestInit);
+productRouter.get('/product/category/:categoryId', async (req, res) => {
+	const { categoryId } = req.params;
+	const response = await got.get(`${productEndpoint}/product/category/${categoryId}`);
+	return res.status(response.statusCode).json(response.body);
 });
 
-productRouter.get('/product/:id', async (req, _)=>{
-    const {id} = req.params;
-    return await fetch(`${productEndpoint}/product/${id}`, requestInit);
+productRouter.get('/product/:id', async (req, res) => {
+	const { id } = req.params;
+	const response = await got.get(`${productEndpoint}/product/${id}`);
+	return res.status(response.statusCode).json(response.body);
 });
 
-productRouter.post('/product/:categoryId', async (req, _)=>{
-    return await fetch(`${productEndpoint}/product`, {
-        ...requestInit,
-        method: 'POST',
-        body: JSON.stringify(req.body)
-    });
+productRouter.post('/product/:categoryId', async (req, res) => {
+	const { categoryId } = req.params;
+	const response = await got.post(`${productEndpoint}/product/${categoryId}`, { json: req.body });
+	return res.status(response.statusCode).json(response.body);
 });
 
-productRouter.put('/product/:id', async (req, _)=>{
-    const {id} = req.params;
-    return await fetch(`${productEndpoint}/product/${id}`, {
-        ...requestInit,
-        method: 'PUT',
-        body: JSON.stringify(req.body)
-    });
+productRouter.put('/product/:id', async (req, res) => {
+	const { id } = req.params;
+	const response = await got.put(`${productEndpoint}/product/${id}`, { json: req.body });
+	return res.status(response.statusCode).json(response.body);
 });
 
-productRouter.delete('/product/:id', async (req, _)=>{
-    const {id} = req.params;
-    return await fetch(`${productEndpoint}/product/${id}`, {
-        ...requestInit,
-        method: 'DELETE'
-    });
+productRouter.delete('/product/:id', async (req, res) => {
+	const { id } = req.params;
+	const response = await got.delete(`${productEndpoint}/product/${id}`);
+	return res.status(response.statusCode).json(response.body);
 });
 
 export default productRouter;
