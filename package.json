@@ -11,7 +11,7 @@
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "swagger-autogen": "node swagger.ts",
     "test": "jest --runInBand",
-    "test:coverage": "jest --coverage --runInBand"
+    "test:coverage": "jest --coverage --runInBand --passWithNoTests"
   },
   "keywords": [],
   "author": "",
