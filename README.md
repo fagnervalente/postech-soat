@@ -46,6 +46,10 @@ cd postech-soat
 ```
 - Executar aplicação. Pode ser executada em ambiente de desenvolvimento à partir do Docker, ou a partir do Kubernetes (usa a imagem latest da aplicação no Dockerhub):
 
+### ☁️ Implantação
+
+O projeto para ser feito deploy na AWS via Terraform se encontra no repositório: [Projeto de deploy PosTech](https://github.com/fagnervalente/postech-soat-infra/tree/feature/microservices-integration)
+
 #### Executando com K8S e Minikube
 - Executar configurações de objetos kubernets
 ```
