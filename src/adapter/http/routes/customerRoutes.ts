@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { AuthLambdaIntegration, Customer } from "src/adapter/auth/AuthLambdaIntegration";
 import { Router } from "express";
 import HttpUtils from '../HttpUtils';

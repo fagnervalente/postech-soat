@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Router } from "express";
 import HttpUtils from "../HttpUtils";
 import auth from "../../auth/authMiddleware";

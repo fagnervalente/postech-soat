@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Router } from "express";
 import HttpUtils from "../HttpUtils";
 import got from "got";
