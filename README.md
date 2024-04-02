@@ -16,6 +16,13 @@ Projeto desenvolvido para o curso de Pós Graduação em Software Architecture p
 - FigJam: [Link do Event Storming junto com a Linguagem Ubíqua](https://www.figma.com/file/5De6rNc23ORRVFOVxTFUDT/Event-Storming---Lanchonete-2SOAT?type=whiteboard&node-id=0%3A1&t=Tze0BMEbEmZBjORu-1)
 - RIPD: [Relatório RIPD](https://drive.google.com/file/d/1HZCBtTihv-VGrZWyedxWsCWoVvzhB7Bf/view?usp=sharing)
 
+**Repositórios**
+- [Infraestrutura](https://github.com/fagnervalente/postech-soat-infra/tree/feature/saga)
+- [microsserviço de usuários](https://github.com/fagnervalente/postech-soat-user)
+- [microsserviço de produtos](https://github.com/fagnervalente/postech-soat-product)
+- [microsserviço de pedido](https://github.com/fagnervalente/postech-soat-order)
+- [microsserviço de pagamento](https://github.com/fagnervalente/postech-soat-payment)
+- [microsserviço de produção](https://github.com/fagnervalente/postech-soat-process)
 
 ## 🔥 Documentação API
 
@@ -47,7 +54,7 @@ cd postech-soat
 ```
 - Executar aplicação. Pode ser executada em ambiente de desenvolvimento à partir do Docker, ou a partir do Kubernetes (usa a imagem latest da aplicação no Dockerhub):
 
-### ☁️ Implantação
+## ☁️ Implantação
 
 O projeto para ser feito deploy na AWS via Terraform se encontra no repositório: [Projeto de deploy PosTech](https://github.com/fagnervalente/postech-soat-infra/tree/feature/microservices-integration)
 
