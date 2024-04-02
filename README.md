@@ -1,4 +1,4 @@
-# Tech Challenge - Self Service
+# 🟪 Tech Challenge - Self Service
 Projeto desenvolvido para o curso de Pós Graduação em Software Architecture para composição da nota.
 
 
@@ -14,6 +14,7 @@ Projeto desenvolvido para o curso de Pós Graduação em Software Architecture p
 ## 📖 Documentos
 
 - FigJam: [Link do Event Storming junto com a Linguagem Ubíqua](https://www.figma.com/file/5De6rNc23ORRVFOVxTFUDT/Event-Storming---Lanchonete-2SOAT?type=whiteboard&node-id=0%3A1&t=Tze0BMEbEmZBjORu-1)
+- RIPD: [Relatório RIPD](https://drive.google.com/file/d/1HZCBtTihv-VGrZWyedxWsCWoVvzhB7Bf/view?usp=sharing)
 
 
 ## 🔥 Documentação API
@@ -60,6 +61,10 @@ kubectl apply -f infra
 minikube service svc-api-webserver get --url
 ```
 
+### Desenho da Arquitetura
+
+<kbd><img src="https://drive.google.com/uc?export=view&id=1cTjT7KgGPv7sAUxgxmvEQYbXA0IjaqaN" alt="Diagrama SAGA" style="border-radius:8px" /></kbd>
+
 #### Executando com docker
 - Instalar dependências:
 ```sh
@@ -74,27 +79,33 @@ cp .env_example .env
 docker compose up -d
 ```
 
-## 🧪 Executando os testes
+## 💬 Padrão SAGA
 
-Para executar testes, execute o seguinte comando:
+Para o desevolvimento e implementação do Padrão SAGA foi adotado o padrão coreografia.
 
-```bash
-npm run test
-```
+### Motivação
 
-### Verificar Cobertura
-Para verificar a cobertura de testes, execute o seguinte comando:
-```bash
-npm run test:coverage
-```
+Dado os cenários possíveis e a comunição simples entre apenas três microsserviços, o padrão coreografia foi escolhido por ser mais rápido em sua implementação que o padrão orquestrado, uma vez que não seria necessário mapear cada cenário possível para os eventos, implementar e testar. No padrão coreografia, podemos trabalhar de forma forma rápida e isolada, tornando maís rápido sua integração a aplicação já existente, somado a simplicidade dos fluxos. Em um cenário no qual a função de estoque existisse na aplicação, seria mais propício a adesão do padrão orquestrado, dado que haveria uma camada a mais de complexidade, o que tornaria o gerenciamento de responsabilidades mais complicado.
 
-## 🚀 Migrations
-É possível executar as migrations de banco de dados criadas. Para isso:
-- Executar attach shell no container `self-service-app_webserver`, através da extensão `Docker` do vsCode, ou com o seguinte comando;
-```sh
-docker exec -it self-service-app_webserver sh
-```
-- Executar migrations:
-```sh
-npm run migration:run
-```
+### Desenho do Padrão
+
+<kbd><img src="https://drive.google.com/uc?export=view&id=1KuvYvDSa2X1QOsej0zjM4mI_eCv_mE4z" alt="Diagrama SAGA" style="border-radius:8px" /></kbd>
+
+#### Descrição
+**1**. Publica o pedido na fila created_orders para criar intenção de pagamento;
+
+**2**. Consome pedidos na fila created_orders para realizar o pagamento;
+
+**3**. Publica o pedido com pagamento confirmado na fila confirmed_payments para ser produzido;
+
+**4**. Publica o pedido confirmado na fila status_payment para atualizar o status do pagamento do pedido;
+
+**5**. Consome os pedidos confirmados na fila confirmed_payments para realizar a produção;
+
+**6**. Consome os pedidos confirmados na fila status_payment para atualizar o status do pagamento do pedido e notificar o cliente se foi confirmado ou não o pagamento;
+
+**7**. Publica o pedido na fila status_order para atualizar o status de produção do pedido;
+
+**8**. Consome os pedidos da fila status_order para realizar a atualização do status do pedido.
+
+
