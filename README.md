@@ -63,7 +63,7 @@ minikube service svc-api-webserver get --url
 
 ### Desenho da Arquitetura
 
-<kbd><img src="https://drive.google.com/uc?export=view&id=1cTjT7KgGPv7sAUxgxmvEQYbXA0IjaqaN" alt="Diagrama SAGA" style="border-radius:8px" /></kbd>
+<kbd><img src="https://drive.google.com/uc?export=view&id=1cTjT7KgGPv7sAUxgxmvEQYbXA0IjaqaN" alt="Diagrama AWS" style="border-radius:8px" /></kbd>
 
 #### Executando com docker
 - Instalar dependências:
