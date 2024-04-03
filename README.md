@@ -16,6 +16,10 @@ Projeto desenvolvido para o curso de Pós Graduação em Software Architecture p
 - FigJam: [Link do Event Storming junto com a Linguagem Ubíqua](https://www.figma.com/file/5De6rNc23ORRVFOVxTFUDT/Event-Storming---Lanchonete-2SOAT?type=whiteboard&node-id=0%3A1&t=Tze0BMEbEmZBjORu-1)
 - RIPD: [Relatório RIPD](https://drive.google.com/file/d/1HZCBtTihv-VGrZWyedxWsCWoVvzhB7Bf/view?usp=sharing)
 
+**OWASP**
+- [Relatório antes do Ajustes](https://drive.google.com/file/d/1iZV0UOOdQU28wqy-z0DWYyiE8pigMIDF/view?usp=sharing)
+- [Relatório após os Ajustes](https://drive.google.com/file/d/10OTH8SI3bgaG0MZO0wqP0LJvIYwdqPed/view?usp=sharing)
+
 **Repositórios**
 - [Infraestrutura](https://github.com/fagnervalente/postech-soat-infra/tree/feature/saga)
 - [microsserviço de usuários](https://github.com/fagnervalente/postech-soat-user)
@@ -27,7 +31,6 @@ Projeto desenvolvido para o curso de Pós Graduação em Software Architecture p
 ## 🔥 Documentação API
 
 Para informações sobre os endpoints disponibilizados pela API, após realizar o deploy do projeto basta acessar `localhost:3000/docs`, será exibido o swagger com as funcionalidades disponíveis.
-
 
 
 ## 🛠 Funcionalidades
@@ -114,5 +117,3 @@ Dado os cenários possíveis e a comunição simples entre apenas três microsse
 **7**. Publica o pedido na fila status_order para atualizar o status de produção do pedido;
 
 **8**. Consome os pedidos da fila status_order para realizar a atualização do status do pedido.
-
-
